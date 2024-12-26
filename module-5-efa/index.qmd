@@ -39,13 +39,10 @@ setwd("C:/Users/chris/Documents/Github-repository/agec211-2024/agec211-lecture/m
 library(tidyverse)
 library(glue)
 library(patchwork)
+library(kableExtra)
 
 # reading data
-wildlife_impacts <- read_csv("data/wildlife_impacts.csv")
-days_to_ship <- tibble(
-  order = seq(12),
-  warehouseA = c(3,3,3,4,4,4,5,5,5,5,5,5),
-  warehouseB = c(1,1,1,3,3,4,5,5,5,6,7,10))
+
 
 # setting the theme
 theme_set(theme_bw(base_size = 18)) # Set theme for all ggplots
@@ -54,502 +51,769 @@ theme_set(theme_bw(base_size = 18)) # Set theme for all ggplots
 
 ## Lessons
 
--   Overview of EDA
+-   Introduction to hypothesis testing
 
--   Centrality and variability
+-   Parametric vs non-parametric tests
 
--   Amounts and proportions
+-   Independent samples t-test
 
--   Comparisons
+-   Paired samples t-test
 
--   Trends
+-   One-way ANOVA
 
-# Lesson 1: What is EDA?
+-   Two-way ANOVA
 
-## EDA: an introduction
+-   Chi-square test
 
-EDA is an iterative cycle that helps you understand what your data says. It involves:
+# Lesson 1: Introduction to hypothesis testing?
 
--   Generate questions about your data
+## What is hypothesis testing?
 
--   Search for answers by visualizing, transforming, and modeling your data
+-   Hypothesis testing is a statistical method used to make inferences or draw conclusions about a population based on sample data.
 
--   Use what you learn to refine your questions and/or generate new questions
+-   It involves evaluating two competing hypotheses to determine if there is enough evidence to support a particular claim.
 
-## EDA: an introduction
+## Key Concepts in Hypothesis Testing
 
-Your goal during EDA is to develop an understanding of your data.
+:::::: columns
+::::: incremental
+::: {.column width="50%"}
+**Null Hypothesis (H₀)**
 
-> “Far better an approximate answer to the right question, which is often vague, than an exact answer to the wrong question, which can always be made precise.” — John Tukey
+-   A statement suggesting no effect, no difference, or no relationship exists. This is the hypothesis that is tested.
 
-## EDA: two useful questions
+-   Example: "There is no difference in the average test scores between two groups."
+:::
 
-There is no rule about which questions you should ask to guide your research. However, two questions are particularly useful:
+::: {.column width="50%"}
+**Alternative Hypothesis (H₁ or Ha)**
 
-1.  What type of variation occurs within my variables?
+-   A statement that contradicts the null hypothesis, proposing that there is a significant effect or difference.
 
-2.  What type of covariation occurs between my variables?
+-   Example: "There is a significant difference in the average test scores between two groups."
+:::
+:::::
+::::::
 
-## Is EDA a tool for discovery or confirmation? {.quiz-question}
-
--   [Discovery]{.correct data-explanation="Correct! EDA is a tool for discovery; in fact, EDA is one of the most fruitful tools for discovery in science. We’ll focus on discovery throughout this primer, but remember that you should test any pattern that you discover before you rely on it."}
-
--   [Confirmation]{data-explanation="Not quite. EDA reveals patterns, but it does not confirm that those patterns exist beyond your data set."}
-
-## When you begin to explore data, is it better to formulate one or two high-quality questions to ask, or many, many questions to explore? {.quiz-question}
-
--   [One or two high-quality questions]{data-explanation="Not quite. It is hard to spot useful questions ahead of time because you don’t know which discoveries are waiting in your data."}
-
--   [Many, many questions]{.correct data-explanation="Correct! Each question you ask creates a new opportunity to discover something surprising. You can lead yourself to high-value questions by iterating on questions that reveal unexpected results."}
-
-# Lesson 2: Centrality and variability
-
-## Centrality (aka the "Average" value)
-
-A single number representing the *middle* of a set of numbers
-
-<br>
+## Steps in Hypothesis Testing
 
 ::: incremental
--   **Mean**: $\frac{\text{Sum of values}}{\text{# of values}}$
+1.  **State the hypotheses**: Define H₀ and H₁.
 
--   **Median**: "Middle" value (50% of data above & below)
+2.  **Choose a significance level (α)**: Common choices are 0.05 or 0.01. This determines the threshold for rejecting H₀.
 
--   **Mode**: Most frequent value (usually for categorical data)
+3.  **Select the appropriate test**: Based on the data type and hypotheses (e.g., t-test, ANOVA).
+
+4.  **Compute the test statistic**: This involves calculating a value that measures the difference between the sample data and the null hypothesis.
+
+5.  **Make a decision**:
+
+-   Reject H₀ if the test statistic shows significant evidence against H₀ (i.e., p-value \< α).
+-   Fail to reject H₀ if there is not enough evidence (i.e., p-value ≥ α).
 :::
 
-## Centrality (aka the "Average" value)
+## Types of Errors
 
-### Mean is not the always "best" choice
+:::::: columns
+::::: incremental
+::: {.column width="50%"}
+**Type I Error (False Positive)**
+
+-   Rejecting H₀ when it is actually true.
+
+-   Example: Concluding there is a difference when there isn’t.
+:::
+
+::: {.column width="50%"}
+**Type II Error (False Negative)**
+
+-   Failing to reject H₀ when it is false.
+
+-   Example: Concluding there is no difference when there actually is.
+:::
+:::::
+::::::
+
+## Test Statistic and P-Value
+
+-   The test statistic is a value calculated from the sample data used to decide whether to reject the null hypothesis.
+
+-   The p-value is the probability of obtaining a result at least as extreme as the one observed, given that H₀ is true.
+
+    -   If p-value \< α, reject H₀; otherwise, fail to reject H₀.
+
+# Check-up quiz!
+
+## What is the purpose of hypothesis testing? {.quiz-question}
+
+-   To prove a hypothesis is true.
+
+-   [To make inferences about a population based on sample data]{.correct}
+
+-   To collect sample data.
+
+-   To test the validity of a hypothesis in all situations.
+
+## Which of the following is the null hypothesis (H₀)? {.quiz-question}
+
+-   There is a significant difference between the two groups.
+
+-   [There is no effect or no difference between the two groups]{.correct}
+
+-   The sample data is unreliable.
+
+-   The alternative hypothesis is true.
+
+## What does the p-value represent in hypothesis testing? {.quiz-question}
+
+-   The probability that the null hypothesis is true.
+
+-   [The probability of observing a test statistic as extreme as the one calculated, assuming the null hypothesis is true]{.correct}
+
+-   The critical value required to reject the null hypothesis.
+
+-   The likelihood of making a Type II error.
+
+## Which of the following is a Type I error? {.quiz-question}
+
+-   Concluding there is no effect when one exists.
+
+-   Concluding there is an effect when none exists.
+
+-   [Rejecting the null hypothesis when it is true]{.correct}
+
+-   Accepting the null hypothesis when it is false.
+
+## What is the significance level (α) typically set at in hypothesis testing? {.quiz-question}
+
+-   0.10
+
+-   0.01
+
+-   [0.05]{.correct}
+
+-   0.50
+
+# Lesson 2: Parametric vs Non-parametric tests
+
+## Parametric and non-parametric tests
+
+| Parametric                | Non-parametric            |
+|---------------------------|---------------------------|
+| Independent sample t-test | Mann-Whitney U test       |
+| Paired samples t-test     | Wilcoxon signed rank test |
+| One-way ANOVA             | Kruskal-Wallis test       |
+|                           | Chi-squared tests         |
+
+## Statistical tests for comparing two groups
 
 <br>
 
-::::: columns
-::: {.column width="40%"}
-```{r}
-#| echo: true
++-----------------------------------------------------------------------------------------------------------------------------------+----------------------------------------------------------------------+----------------------------------------------------------------------------------------------------------------+
+| Purpose                                                                                                                           | Data types                                                           | Usage                                                                                                          |
++===================================================================================================================================+======================================================================+================================================================================================================+
+| -   To determine if there is a significant differences between two groups in a dataset, either in means, means, or distributions. | -   Continuous data (e.g., height, test scores, income)              | -   Comparing average performance between two independent groups (e.g., test scores of two classes)            |
+|                                                                                                                                   | -   Ordinal data (e.g., satisfaction rating, ranks)                  | -   Comparing means when groups have unequal variances (e.g., salaries across department)                      |
+|                                                                                                                                   | -   Assumptions about data (normality, equal variances) vary by test | -   Comparing medians of two groups when data isn’t normally distributed (e.g., customer satisfaction scores). |
++-----------------------------------------------------------------------------------------------------------------------------------+----------------------------------------------------------------------+----------------------------------------------------------------------------------------------------------------+
 
-wildlife_impacts %>%
-    filter(! is.na(height)) %>%
-    summarise(
-      mean = mean(height),
-      median = median(height))
+## Independent samples t-test
+
++----------------------------------------------------------+----------------------------------------------------------------------------+------------------------------------------------------------------------------------------------------+
+| Purpose                                                  | Data requirements                                                          | Example                                                                                              |
++==========================================================+============================================================================+======================================================================================================+
+| -   Comparing means of two independent/unrelated groups. | -   Two variables                                                          | -   Comparing average performance between two independent groups (e.g., test scores of two classes). |
+|                                                          |                                                                            |                                                                                                      |
+|                                                          |     -   1 continuous variable and 1 categorical/discrete with 2 categories |                                                                                                      |
+|                                                          |                                                                            |                                                                                                      |
+|                                                          | -   Normality                                                              |                                                                                                      |
+|                                                          |                                                                            |                                                                                                      |
+|                                                          |     -   use Shapiro Wilk's test (p-value \> 0.05                           |                                                                                                      |
+|                                                          |                                                                            |                                                                                                      |
+|                                                          | -   Homogeneity of variance                                                |                                                                                                      |
+|                                                          |                                                                            |                                                                                                      |
+|                                                          |     -   use Levene's tests (p-value\>0.05)                                 |                                                                                                      |
++----------------------------------------------------------+----------------------------------------------------------------------------+------------------------------------------------------------------------------------------------------+
+
+## Independent sample t-test
+
+```{r}
+knitr::include_graphics("plot/idependent-t-tst.png")
 ```
 
-Percent of data below mean:
+## Independent sample t-test
+
+::: callout-tip
+## Steps in Hypothesis testing
+
+1.  State the hypotheses
+
+2.  Specify the decision rule and the level of\
+    statistical significance.
+
+3.  Test the assumptions and Identify the appropriate test.
+
+4.  Compute for the statistic and p-value
+
+5.  Decision: Compare p-value and alpha value.
+
+6.  Conclusion
+:::
+
+## Independent sample t-test
+
+::: callout-tip
+## Activitiy: Comparison two independent group
+
+Using the **mpg** dataset, test whether there is a statistically significant difference in the hwy miles per gallon (hwy) between 4-cylinder and 8-cylinder automobiles.
+:::
+
+## Independent sample t-test
+
+::::: columns
+::: {.column width="50%"}
+Step 1: Import data and data management
 
 ```{r}
 #| echo: true
 
-percentiles <- ecdf(wildlife_impacts$height)
-meanP <- percentiles(mean(wildlife_impacts$height, na.rm = TRUE))
-paste0(round(100*meanP, 1), '%')
+## setting cyl variable as factor
+mpg_dta <- 
+  mpg |> 
+  filter(cyl %in% c(4, 8)) |> 
+  mutate(cyl = as_factor(cyl))
+
+head(mpg_dta)
 ```
 :::
 
-::: {.column width="60%"}
+::: {.column width="50%"}
+Step 2: Test of normality
+
 ```{r}
-knitr::include_graphics("plot/wildlife_impacts_hist.png")
+#| echo: true
+
+mpg_dta |>
+  group_by(cyl) |>
+  summarise(
+    shapiro_test = shapiro.test(hwy)$statistic,
+    p_value = shapiro.test(hwy)$p.value
+  )
 ```
 :::
 :::::
 
-## Variability ("spread")
-
--   **Standard deviation**: distribution of values relative to the mean
-
-    -   $s = \sqrt{\frac{\sum_{i=1}^{N}(x_i - \bar{x})^2}{N - 1}}$
-
--   **Interquartile range (IQR)**: $Q_3 - Q_1$ (middle 50% of data)
-
--   **Range**: max - min
-
-## Variability ("spread")
-
--   Complaints are coming in about orders shipped from warehouse B, so you collect some data.
-
--   ... here **averages** are misleading
+## Independent sample t-test
 
 ::::: columns
 ::: {.column width="50%"}
+Step 3: Test of homogeneity of variance
+
 ```{r}
 #| echo: true
-days_to_ship
+car::leveneTest(data = mpg_dta, hwy ~ cyl, center = mean)
+car::leveneTest(data = mpg_dta, hwy ~ cyl, center = median)
 ```
 :::
 
 ::: {.column width="50%"}
-``` {.r code-line-numbers="5-6"}
-days_to_ship |> 
-  pivot_longer(-order, names_to = "warehouse", values_to = "days") |> 
-  group_by(warehouse) |>
-  summarise(
-    mean = mean(days),
-    median = median(days))
-```
+Step 4: Perform independent sample t-test
 
 ```{r}
-days_to_ship |> 
-  pivot_longer(-order, names_to = "warehouse", values_to = "days") |> 
-  group_by(warehouse) |>
-  summarise(
-    mean = mean(days),
-    median = median(days))
+#| echo: true
+
+t.test(hwy ~ cyl, data = mpg_dta, var.equal = FALSE, na.rm = TRUE)
 ```
 :::
 :::::
 
-## Variability ("spread")
+## Independent sample t-test
+
+::: callout-tip
+## Solution
+
+1.  State the Null and Alternative Hypotheses
+
+-   Ho: There is no significant difference in the average miles per gallon between 4-cylinder and 8-cylinder automobiles.
+
+-   Ha: There is a significant difference in the average miles per gallon between 4-cylinder and 8-cylinder automobiles.
+
+2.  Specify the level of statistical significance (α)
+
+-   α: 0.05
+:::
+
+## Independent sample t-test
+
+::: callout-tip
+## Solution
+
+3.  Test Assumptions
+
+-   Normality: failed to satisfy
+
+-   Homogeneity of variance: failed to Satisfy
+
+-   Test to be used: Welch's t-test
+
+4.  Run the test in R, get the statistic and p-value
+
+-   T Statistic: 17.58
+
+-   p-value: 0.000
+:::
+
+## Independent sample t-test
+
+::: callout-tip
+## Solution
+
+5.  Decision
+
+-   Since the p-value (0.000) is less than alpha (0.05), reject Ho.
+
+6.  Conclusion
+
+-   There is a significant difference in the average miles per gallon between 4-cylinder and 8-cylinder automobiles.
+:::
+
+## Independent sample t-test
 
 ::::: columns
--   Complaints are coming in about orders shipped from warehouse B, so you collect some data:
-
--   **variability** reveals difference in days to ship
-
-::: {.column width="50%"}
+::: {.column width="30%"}
 ```{r}
 #| echo: true
-days_to_ship
+#| eval: false
+
+library(ggstatsplot)
+
+ggbetweenstats(
+  data = mpg_dta,
+  x = cyl,
+  y = hwy,
+  messages = FALSE
+)
+
 ```
 :::
 
-::: {.column width="50%"}
-``` {.r code-line-numbers="5-8"}
-days_to_ship |> 
-  pivot_longer(-order, names_to = "warehouse", values_to = "days") |> 
-  group_by(warehouse) |>
-  summarise(
-    mean = mean(days),
-    sd = sd(days),
-    iqr = IQR(days),
-    range = max(days) - min(days))
-```
-
+::: {.column width="70%"}
 ```{r}
-days_to_ship |> 
-  pivot_longer(-order, names_to = "warehouse", values_to = "days") |> 
-  group_by(warehouse) |>
-  summarise(
-    mean = mean(days),
-    sd = sd(days),
-    iqr = IQR(days),
-    range = max(days) - min(days))
+#| echo: false
+#| fig-width: 10
+#| fig-height: 8
+
+library(ggstatsplot)
+
+ggbetweenstats(
+  data = mpg_dta,
+  x = cyl,
+  y = hwy,
+  messages = FALSE
+) +
+  theme_minimal(base_size = 18) +
+  theme(legend.position = "none")
+
 ```
 :::
 :::::
 
-## Variability ("spread")
-
-<br>
-
-```{r}
-knitr::include_graphics("plot/days_to_ship.png")
-```
-
-## Outliers
-
-**Mean** and **standard deviation** are sensitive to outliers
-
--   **Outliers**: $Q_1 - 1.5 IQR$ \* $Q_3 + 1.5 IQR$
-
--   **Extreme values**: $Q_1 - 3 IQR$ \* $Q_3 + 3 IQR$
-
-<br>
-
-::::: columns
-::: {.column width="50%"}
-```{r}
-#| echo: true
-data1 <- c(3,3,4,5,5,6,6,7,8,9)
-```
-
--   Mean: `r round(mean(data1), 2)`
-
--   Standard deviation: `r round(sd(data1), 2)`
-
--   Median: `r median(data1)`
-
--   IQR: `r IQR(data1)`
-:::
-
-::: {.column width="50%"}
-```{r}
-#| echo: true
-data2 <- c(3,3,4,5,5,6,6,7,8,20)
-```
-
--   Mean: `r mean(data2)`
-
--   Standard deviation: `r round(sd(data2), 2)`
-
--   Median: `r median(data2)`
-
--   IQR: `r IQR(data2)`\
-:::
-:::::
-
-## Outliers
-
-<br>
-
-![](plot/boxplot-iqr.png){width="70%" height="70%" fig-align="center"}
-
-::: {style="font-size: 70%; text-align: center;"}
-Source: [Data Science Discovery](https://discovery.cs.illinois.edu/learn/Exploratory-Data-Analysis/Quartiles-and-Box-Plots/)
-:::
-
-## Outliers
-
-Robust statistics for continuous data (less sensitive to outliers)
-
--   **Centrality**: use *median* rather than *mean*
-
--   **Variability**: use *IQR* rather than *standard deviation*
-
-## "Visualizing data helps us think"
+## Mann-Whitney U test
 
 ```{r}
 #| echo: true
-anscombe |> tibble()
+wilcox.test(hwy ~ cyl, data = mpg_dta, exact = FALSE)
 ```
+
+## R Activity: Mann-Whitney U test
+
+::: callout-tip
+## Instructions
+
+1.  Load the diamonds dataset from the `ggplot2` package. Filter the data to include only "Very Good" and "Premium" cut diamonds. Sample 1000 observations from each group to ensure the Shapiro-Wilk test can be applied.
+
+2.  Checking Assumptions: Normality and Homogeneity of Variance
+
+3.  Conduct the Mann-Whitney U test to compare the median prices of the two groups.
+
+4.  Interpret the result
+:::
 
 ```{r}
 #| echo: false
-anscombe_summary_stats <- 
-  anscombe |> 
-  psych::describe() |> 
-  select(mean, sd) |> 
-  # tranform to column iwth rownames as column
-  rownames_to_column("variable") |> 
-  tibble() |> 
-  pivot_longer(cols = c(mean, sd), names_to = "statistic", values_to = "value") |> 
-  pivot_wider(names_from = variable, values_from = value)
+#| eval: false
+
+## answer key to the exercises
+diamond_dataset <- 
+  ggplot2::diamonds |> 
+  filter(cut %in% c("Very Good", "Premium")) |> 
+  mutate(cut = as_factor(cut)) |> 
+  mutate(price = as.numeric(price)) |> 
+  group_by(cut) |> 
+  sample_n(1000) |> 
+  ungroup()
+
+## normality test
+diamond_dataset |>
+  group_by(cut) |>
+  summarise(
+    shapiro_test = shapiro.test(price)$statistic,
+    p_value = shapiro.test(price)$p.value
+  )
+
+## homogeneity of variance
+car::leveneTest(data = diamond_dataset, price ~ cut, center = mean)
+
+## mann-whitney u test
+wilcox.test(price ~ cut, data = diamond_dataset, exact = FALSE)
 ```
 
-<br>
+# Check up quiz
 
-```{r}
-#| echo: true
-anscombe_summary_stats
-```
+## Which of the following is a key assumption of the independent t-test? {.quiz-question}
 
-## Anscombe's Quartet
+-   Normality of the dependent variable in both groups
 
--   Stephen Few (2009, p6)
+-   Equal variances between the two groups
 
-```{r}
-knitr::include_graphics("plot/p_corr_anscombe.png")
-```
+-   Independence of observations within each group
 
-## Data types determines how to summarize it
+-   [All of the above]{.correct}
 
-<br>
+## When would you choose to use the Mann-Whitney U-test instead of an independent t-test? {.quiz-question}
 
-+-----------------------+----------------------+------------------------------------+
-| Nominal (categorical) | Ordinal (categorical | Numerical (continuous)             |
-+=======================+======================+====================================+
-| **Measures**          | **Measures**         | **Measures**                       |
-|                       |                      |                                    |
-| -   Frequency counts  | -   Frequency counts | -   Mean, median                   |
-| -   proportions       | -   proportions      | -   Range, standard deviation, IQR |
-|                       | -   Median, mode     |                                    |
-|                       | -   IQR              |                                    |
-+-----------------------+----------------------+------------------------------------+
-| **Charts**            | **Charts**           | **Charts**                         |
-|                       |                      |                                    |
-| -   Bars              | -   Bars             | -   Histogram                      |
-|                       |                      | -   Boxplot                        |
-+-----------------------+----------------------+------------------------------------+
+-   When the sample sizes are small
 
-## Summarizing Nominal data
+-   When the data is normally distributed
+
+-   When the variances of the two groups are equal
+
+-   [When the data is not normally distributed]{.correct}
+
+## Which of the following is a non-parametric test? {.quiz-question}
+
+-   Independent t-test
+
+-   One-way ANOVA
+
+-   [Mann-Whitney U-test]{.correct}
+
+-   Pearson correlation
+
+## If the p-value of a Mann-Whitney U-test is less than 0.05, what conclusion can we draw? {.quiz-question}
+
+-   There is no significant difference between the two groups
+
+-   [There is a significant difference between the two groups]{.correct}
+
+-   The test is inconclusive
+
+-   The assumptions of the test are not met
+
+## Dependent t-test
+
+-   Used to compare the means of two related groups.
+
+-   Example: Comparing test scores before and after a training program.
+
+-   Assumptions: Normality, homogeneity of variance, and dependent observations.
+
+## Dependent t-test
+
+::: callout-tip
+-   Steps in hypothesis testing:
+
+    1.  State the hypotheses.
+
+    2.  Specify the level of statistical significance (α).
+
+    3.  Test assumptions and identify the appropriate test.
+
+    4.  Compute the statistic and p-value.
+
+    5.  Decision: Compare p-value and alpha value.
+
+    6.  Conclusion.
+:::
+
+## Dependent t-test
+
+::: callout-tip
+## Activity: Dependent t-test
+
+Using the a synthetic data on training scores of before and after a training program, test whether there is a statistically significant difference in the scores before and after the training program.
+:::
+
+## Dependent t-test
 
 ::::: columns
 ::: {.column width="50%"}
-Summarize with counts/ percentages
+Step 1: Import data and data management
 
 ```{r}
 #| echo: true
+## using a synthetic dataset
+before <- c(12.2, 14.6, 13.4, 11.2, 12.7, 10.4, 15.8, 13.9, 9.5, 14.2)
+after <- c(13.5, 15.2, 13.6, 12.8, 13.7, 11.3, 16.5, 13.4, 8.7, 14.6)
 
-wildlife_impacts |> 
-  count(operator, sort = TRUE) |> 
-  mutate(percent = n / sum(n))
+training_data <- tibble(subject = rep(c(1:10), 2), 
+                   time = rep(c("before", "after"), each = 10),
+                   score = c(before, after)) |> 
+  mutate(time = as_factor(time))
+
+head(training_data)
 ```
 :::
 
 ::: {.column width="50%"}
-Visualize with bars
+Step 2: Test of normality
 
+```{r}
+#| echo: true
+training_data |>
+  group_by(time) |>
+  summarise(
+    shapiro_test = shapiro.test(score)$statistic,
+    p_value = shapiro.test(score)$p.value
+  )
+```
+:::
+:::::
+
+## Dependent t-test
+
+::::: columns
+::: {.column width="50%"}
+Step 3: Test of homogeneity of variance
+
+```{r}
+#| echo: true
+
+car::leveneTest(data = training_data, score ~ time, center = mean)
+```
+:::
+
+::: {.column width="50%"}
+Step 4: Perform dependent sample t-test
+
+```{r}
+#| echo: true
+
+t.test(training_data$score[training_data$time=="before"], 
+       training_data$score[training_data$time=="after"], paired = TRUE, na.rm = TRUE)
+```
+:::
+:::::
+
+## Dependent t-test
+
+::::: columns
+::: {.column width="30%"}
 ```{r}
 #| echo: true
 #| eval: false
 
-wildlife_impacts |> 
-  count(operator, sort = TRUE) |> 
-  ggplot(aes(x = fct_reorder(operator, n), y = n)) +
-  geom_col() +
-  coord_flip() +
-  labs(x = "Operator", y = "Count") +
-  theme_minimal()
+## plot paired sample t test using ggbetweenstats
+ggwithinstats(
+  data = training_data,
+  x = time,
+  y = score,
+  title = "Paired Samples T-Test",
+)
 ```
+:::
 
+::: {.column width="70%"}
 ```{r}
-knitr::include_graphics("plot/nominal_barplot.jpeg")
+#| echo: false
+#| fig-width: 10
+#| fig-height: 8
+
+## plot paired sample t test using ggbetweenstats
+ggwithinstats(
+  data = training_data,
+  x = time,
+  y = score,
+  title = "Paired Samples T-Test",
+) +
+  theme_minimal(base_size = 18) +
+  theme(legend.position = "none")
+
 ```
 :::
 :::::
 
-## Summarizing Ordinal data
+# Check-up quiz
 
-::::: columns
-::: {.column width="50%"}
-Summarize: counts/ percentages
+## Which of the following scenarios is appropriate for a paired samples t-test? {.quiz-question}
 
-```{r}
-#| echo: true
-wildlife_impacts |> 
-  count(incident_month, sort = TRUE) |> 
-  mutate(percent = n / sum(n))
-```
-:::
+-   Comparing the test scores of two independent groups.
 
-::: {.column width="50%"}
-Visualize: bars
+-   [Measuring the effectiveness of a training program by comparing pre and post test scores of the same individuals]{.correct}
 
-```{r}
-#| echo: true
-#| eval: false
+-   Comparing the heights of men and women in a population.
 
-wildlife_impacts |> 
-  count(incident_month, sort = TRUE) |> 
-  ggplot(aes(x = as.factor(incident_month), y = n)) +
-  geom_col() +
-  labs(x = "Incident Month", y = "Count") 
-```
+-   Testing the correlation between two variables.
 
-```{r}
-knitr::include_graphics("plot/ordinal_barplot.jpeg")
-```
-:::
-:::::
+## What is the null hypothesis in a paired samples t-test? {.quiz-question}
 
-## Summarizing continuous data
+-   The means of the two groups are equal.
 
-::::: columns
-::: {.column width="50%"}
-**Histograms**:
+-   The means of the paired measurements are equal.
 
--   Skewness
+-   [The paired differences have a mean of zero]{.correct}
 
--   Number of modes
+-   There is no relationship between the two variables.
+
+## In the context of a paired t-test, which of the following R functions is used to perform the test? {.quiz-question}
+
+-   `lm()`
+
+-   [`t.test()`]{.correct}
+
+-   `aov()`
+
+-   `cor.test()`
+
+# Statistical tests for comparing more than two groups
+
+## comparing more than two groups
 
 <br>
 
-**Boxplots**:
++--------------------------------------------------------------------------------------------------------------------------------------------+----------------------------------------------------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Purpose                                                                                                                                    | Data requirements                                                    | Example                                                                                                                                                           |
++============================================================================================================================================+======================================================================+===================================================================================================================================================================+
+| -   To determine whether there are significant differences among the means, medians, or distribution of three or more groups in a dataset. | -   continuous data (e.g., height, test scores, income)              | -   Testing if the means of multiple independent groups are significantly different (e.g., "Are the average incomes of employees in three companies different?"). |
+|                                                                                                                                            | -   Ordinal data (e.g., satisfaction ratings, ranks).                |                                                                                                                                                                   |
+|                                                                                                                                            | -   Assumptions about data (normality, equal variances) vary by test |                                                                                                                                                                   |
++--------------------------------------------------------------------------------------------------------------------------------------------+----------------------------------------------------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------+
 
--   Outliers
+## One-way Anova
 
--   Comparing variablesn
+<br>
+
++-----------------------------------------------------------+---------------------------------------------------------------------------------------------+----------------------------------------------------------------------------------------------------+
+| Purpose                                                   | Data requirements                                                                           | Example                                                                                            |
++===========================================================+=============================================================================================+====================================================================================================+
+| -   Comparing means of at least three independent groups. | -   two variables: i continuous variable, 1 categorical/discrete with at least 3 categories | -   Comparing average performance among three independent groups (e.g., test scores of 3 classes). |
+|                                                           | -   normality: data should be approximately normally distributed.                           |                                                                                                    |
+|                                                           | -   homogeneity of variance: the variances of the group should be equal.                    |                                                                                                    |
++-----------------------------------------------------------+---------------------------------------------------------------------------------------------+----------------------------------------------------------------------------------------------------+
+
+## One-way Anova
+
+::: callout-tip
+## Steps in Hypothesis testing
+
+1.  State the hypotheses
+
+2.  Specify the decision rule and the level of\
+    statistical significance.
+
+3.  Test the assumptions and Identify the appropriate test.
+
+4.  Compute for the statistic and p-value
+
+5.  Decision: Compare p-value and alpha value.
+
+6.  Conclusion
 :::
 
+## One-way Anova
+
+::::: columns
 ::: {.column width="50%"}
+Step 1: Import data and data management
+
 ```{r}
-knitr::include_graphics("plot/eda-boxplot.png")
+#| echo: true
+
+# Create the dataframe
+exam_data <- data.frame(
+  group = c(
+    rep(1, 10),
+    rep(2, 10),
+    rep(3, 10)
+  ),
+  exam = c(
+    50, 45, 48, 47, 45, 49, 50, 54, 57, 55, # Group 1
+    63, 55, 54, 49, 65, 46, 53, 67, 58, 50, # Group 2
+    71, 67, 68, 62, 65, 58, 63, 69, 70, 61  # Group 3
+  )
+) |> 
+  mutate(group = as_factor(group))
+
+# View the dataframe
+head(exam_data)
+
 ```
 :::
-:::::
 
-## **Histogram**: Identify Skewness & \# of Modes
-
-::::: columns
 ::: {.column width="50%"}
-**Summarise**:
-
--   Mean, median, sd, range, & IQR:
+Step 2: Test of normality
 
 ```{r}
-summary(wildlife_impacts$height)
-```
-:::
+#| echo: true
 
-::: {.column width="50%"}
-**Visualize**:
-
--   Histogram (identify skewness & modes)
-
-```{r wildlife-height-hist, fig.width=7, fig.height=5, fig.align='center'}
-ggplot(wildlife_impacts) +
-  geom_histogram(aes(x = height), bins = 50) + #<<
-  labs(x = 'Height (ft)', y = 'Count')
+exam_data |>
+  group_by(group) |>
+  summarise(
+    shapiro_test = shapiro.test(exam)$statistic,
+    p_value = shapiro.test(exam)$p.value
+  )
 ```
 :::
 :::::
 
-## Histogram: Identify Skewness & \# of Modes
+## One-way Anova
 
 ::::: columns
 ::: {.column width="50%"}
-**Height**
+Step 3: Test of homogeneity of variance
 
-```{r, ref.label="wildlife-height-hist", fig.width=7, fig.height=5, fig.align='center'}
+```{r}
+#| echo: true
+
+car::leveneTest(data = exam_data, exam ~ group, center = mean)
 ```
 :::
 
 ::: {.column width="50%"}
-**Speed**
+Step 4: Perform one-way Anova
 
-```{r wildlife-speed-hist, fig.width=7, fig.height=5, fig.align='center'}
-ggplot(wildlife_impacts) +
-  geom_histogram(aes(x = speed), bins = 50) + #<<
-  labs(x = 'speed (mph)', y = 'Count')
+```{r}
+#| echo: true
+
+aov_result <- aov(exam ~ group, data = exam_data)
+summary(aov_result)
+
 ```
 :::
 :::::
 
-## Boxplot: Identify outliers
+## One-way Anova
 
 ::::: columns
 ::: {.column width="50%"}
-**Height**
+Step 5: Post-hoc test
 
-```{r wildlife-height-boxplot, fig.width=7, fig.height=4, fig.align='center'}
-ggplot(wildlife_impacts) +
-    geom_boxplot(aes(x = height)) + #<<
-    labs(x = 'Height (ft)', y = NULL)
+```{r}
+#| echo: true
+
+TukeyHSD(aov_result)
 ```
 :::
 
 ::: {.column width="50%"}
-**Speed**
+Step 6: Interpretation
 
-```{r wildlife-speed-boxplot, fig.width=7, fig.height=4, fig.align='center'}
-ggplot(wildlife_impacts) +
-    geom_boxplot(aes(x = speed)) + #<<
-    labs(x = 'Speed (mph)', y = NULL)
+```{r}
+#| echo: true
+
+report::report(aov_result)
 ```
 :::
 :::::
 
-## Histogram and Boxplot
 
-::::: columns
-::: {.column width="50%"}
-**Histogram**
-
--   Skewness
--   Modes
-
-```{r, ref.label="wildlife-speed-hist", echo=FALSE, fig.width=7, fig.height=5, fig.align='center'}
-```
-:::
-
-::: {.column width="50%"}
-**Boxplot**
-
--   Outliers
-
-<br><br>
-
-```{r, ref.label="wildlife-speed-boxplot", echo=FALSE, fig.width=7, fig.height=5, fig.align='center'}
-```
-:::
-:::::
