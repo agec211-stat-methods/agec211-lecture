@@ -1369,17 +1369,43 @@ statistical significance.</p></li>
 <div class="columns">
 <div class="column" style="width:50%;">
 <p>Step 1: read in data</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href=""></a><span class="co"># Create the dataframe</span></span>
+<span id="cb19-2"><a href=""></a>exam_data <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb19-3"><a href=""></a>  <span class="at">group =</span> <span class="fu">c</span>(</span>
+<span id="cb19-4"><a href=""></a>    <span class="fu">rep</span>(<span class="dv">1</span>, <span class="dv">10</span>),</span>
+<span id="cb19-5"><a href=""></a>    <span class="fu">rep</span>(<span class="dv">2</span>, <span class="dv">10</span>),</span>
+<span id="cb19-6"><a href=""></a>    <span class="fu">rep</span>(<span class="dv">3</span>, <span class="dv">10</span>)</span>
+<span id="cb19-7"><a href=""></a>  ),</span>
+<span id="cb19-8"><a href=""></a>  <span class="at">exam =</span> <span class="fu">c</span>(</span>
+<span id="cb19-9"><a href=""></a>    <span class="dv">50</span>, <span class="dv">45</span>, <span class="dv">48</span>, <span class="dv">47</span>, <span class="dv">45</span>, <span class="dv">49</span>, <span class="dv">50</span>, <span class="dv">54</span>, <span class="dv">57</span>, <span class="dv">55</span>, <span class="co"># Group 1</span></span>
+<span id="cb19-10"><a href=""></a>    <span class="dv">63</span>, <span class="dv">55</span>, <span class="dv">54</span>, <span class="dv">49</span>, <span class="dv">65</span>, <span class="dv">46</span>, <span class="dv">53</span>, <span class="dv">67</span>, <span class="dv">58</span>, <span class="dv">50</span>, <span class="co"># Group 2</span></span>
+<span id="cb19-11"><a href=""></a>    <span class="dv">71</span>, <span class="dv">67</span>, <span class="dv">68</span>, <span class="dv">62</span>, <span class="dv">65</span>, <span class="dv">58</span>, <span class="dv">63</span>, <span class="dv">69</span>, <span class="dv">70</span>, <span class="dv">61</span>  <span class="co"># Group 3</span></span>
+<span id="cb19-12"><a href=""></a>  )</span>
+<span id="cb19-13"><a href=""></a>) <span class="sc">|&gt;</span> </span>
+<span id="cb19-14"><a href=""></a>  <span class="fu">mutate</span>(<span class="at">group =</span> <span class="fu">as_factor</span>(group))</span>
+<span id="cb19-15"><a href=""></a></span>
+<span id="cb19-16"><a href=""></a><span class="co"># View the dataframe</span></span>
+<span id="cb19-17"><a href=""></a><span class="fu">head</span>(exam_data)</span>
+<span id="cb19-18"><a href=""></a>  group exam</span>
+<span id="cb19-19"><a href=""></a><span class="dv">1</span>     <span class="dv">1</span>   <span class="dv">50</span></span>
+<span id="cb19-20"><a href=""></a><span class="dv">2</span>     <span class="dv">1</span>   <span class="dv">45</span></span>
+<span id="cb19-21"><a href=""></a><span class="dv">3</span>     <span class="dv">1</span>   <span class="dv">48</span></span>
+<span id="cb19-22"><a href=""></a><span class="dv">4</span>     <span class="dv">1</span>   <span class="dv">47</span></span>
+<span id="cb19-23"><a href=""></a><span class="dv">5</span>     <span class="dv">1</span>   <span class="dv">45</span></span>
+<span id="cb19-24"><a href=""></a><span class="dv">6</span>     <span class="dv">1</span>   <span class="dv">49</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 </div><div class="column" style="width:50%;">
 <p>Step 2: create boxplot</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href=""></a><span class="fu">boxplot</span>(</span>
-<span id="cb19-2"><a href=""></a>  <span class="at">data =</span> exam_data,</span>
-<span id="cb19-3"><a href=""></a>  exam <span class="sc">~</span> group</span>
-<span id="cb19-4"><a href=""></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href=""></a><span class="fu">boxplot</span>(</span>
+<span id="cb20-2"><a href=""></a>  <span class="at">data =</span> exam_data,</span>
+<span id="cb20-3"><a href=""></a>  exam <span class="sc">~</span> group</span>
+<span id="cb20-4"><a href=""></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="index_files/figure-revealjs/unnamed-chunk-25-1.png" class="quarto-figure quarto-figure-center" width="768"></p>
+<p><img data-src="index_files/figure-revealjs/unnamed-chunk-26-1.png" class="quarto-figure quarto-figure-center" width="768"></p>
 </figure>
 </div>
 </div>
@@ -1392,27 +1418,27 @@ statistical significance.</p></li>
 <div class="column" style="width:50%;">
 <p>Step 3: run the test</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href=""></a><span class="fu">kruskal.test</span>(<span class="at">data =</span> exam_data, exam <span class="sc">~</span> group)</span>
-<span id="cb20-2"><a href=""></a></span>
-<span id="cb20-3"><a href=""></a>    Kruskal<span class="sc">-</span>Wallis rank sum test</span>
-<span id="cb20-4"><a href=""></a></span>
-<span id="cb20-5"><a href=""></a>data<span class="sc">:</span>  exam by group</span>
-<span id="cb20-6"><a href=""></a>Kruskal<span class="sc">-</span>Wallis chi<span class="sc">-</span>squared <span class="ot">=</span> <span class="fl">17.086</span>, df <span class="ot">=</span> <span class="dv">2</span>, p<span class="sc">-</span>value <span class="ot">=</span> <span class="fl">0.0001949</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href=""></a><span class="fu">kruskal.test</span>(<span class="at">data =</span> exam_data, exam <span class="sc">~</span> group)</span>
+<span id="cb21-2"><a href=""></a></span>
+<span id="cb21-3"><a href=""></a>    Kruskal<span class="sc">-</span>Wallis rank sum test</span>
+<span id="cb21-4"><a href=""></a></span>
+<span id="cb21-5"><a href=""></a>data<span class="sc">:</span>  exam by group</span>
+<span id="cb21-6"><a href=""></a>Kruskal<span class="sc">-</span>Wallis chi<span class="sc">-</span>squared <span class="ot">=</span> <span class="fl">17.086</span>, df <span class="ot">=</span> <span class="dv">2</span>, p<span class="sc">-</span>value <span class="ot">=</span> <span class="fl">0.0001949</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div><div class="column" style="width:50%;">
 <p>Step 4: Post-hoc test</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href=""></a><span class="fu">pairwise.wilcox.test</span>(exam_data<span class="sc">$</span>exam, exam_data<span class="sc">$</span>group, <span class="at">p.adjust.method =</span> <span class="st">"BH"</span>)</span>
-<span id="cb21-2"><a href=""></a></span>
-<span id="cb21-3"><a href=""></a>    Pairwise comparisons using Wilcoxon rank sum test with continuity correction </span>
-<span id="cb21-4"><a href=""></a></span>
-<span id="cb21-5"><a href=""></a>data<span class="sc">:</span>  exam_data<span class="sc">$</span>exam and exam_data<span class="sc">$</span>group </span>
-<span id="cb21-6"><a href=""></a></span>
-<span id="cb21-7"><a href=""></a>  <span class="dv">1</span>       <span class="dv">2</span>      </span>
-<span id="cb21-8"><a href=""></a><span class="dv">2</span> <span class="fl">0.05802</span> <span class="sc">-</span>      </span>
-<span id="cb21-9"><a href=""></a><span class="dv">3</span> <span class="fl">0.00054</span> <span class="fl">0.01080</span></span>
-<span id="cb21-10"><a href=""></a></span>
-<span id="cb21-11"><a href=""></a>P value adjustment method<span class="sc">:</span> BH </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href=""></a><span class="fu">pairwise.wilcox.test</span>(exam_data<span class="sc">$</span>exam, exam_data<span class="sc">$</span>group, <span class="at">p.adjust.method =</span> <span class="st">"BH"</span>)</span>
+<span id="cb22-2"><a href=""></a></span>
+<span id="cb22-3"><a href=""></a>    Pairwise comparisons using Wilcoxon rank sum test with continuity correction </span>
+<span id="cb22-4"><a href=""></a></span>
+<span id="cb22-5"><a href=""></a>data<span class="sc">:</span>  exam_data<span class="sc">$</span>exam and exam_data<span class="sc">$</span>group </span>
+<span id="cb22-6"><a href=""></a></span>
+<span id="cb22-7"><a href=""></a>  <span class="dv">1</span>       <span class="dv">2</span>      </span>
+<span id="cb22-8"><a href=""></a><span class="dv">2</span> <span class="fl">0.05802</span> <span class="sc">-</span>      </span>
+<span id="cb22-9"><a href=""></a><span class="dv">3</span> <span class="fl">0.00054</span> <span class="fl">0.01080</span></span>
+<span id="cb22-10"><a href=""></a></span>
+<span id="cb22-11"><a href=""></a>P value adjustment method<span class="sc">:</span> BH </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div></div>
 </section></section>
@@ -1433,11 +1459,11 @@ r_{xy} = \frac{\Sigma_{i=1}^n (x_i - \bar x) (y_i - \bar y)}{\sqrt{\Sigma_{i=1}^
 </section>
 <section id="correlation-coefficient-interpretation" class="slide level2">
 <h2>Correlation coefficient interpretation</h2>
-<table class="caption-top">
+<table class="caption-top" style="width:98%;">
 <colgroup>
-<col style="width: 33%">
-<col style="width: 16%">
 <col style="width: 32%">
+<col style="width: 17%">
+<col style="width: 30%">
 <col style="width: 17%">
 </colgroup>
 <thead>
@@ -1525,38 +1551,255 @@ r_{xy} = \frac{\Sigma_{i=1}^n (x_i - \bar x) (y_i - \bar y)}{\sqrt{\Sigma_{i=1}^
 <h2>Correlation</h2>
 <div class="columns">
 <div class="column" style="width:30%;">
-<div class="sourceCode" id="cb22"><pre class="sourceCode numberSource markdown number-lines code-with-copy"><code class="sourceCode markdown"><span id="cb22-1"><a href=""></a><span class="in">```{r}</span></span>
-<span id="cb22-2"><a href=""></a><span class="in"># Use the built-in 'mtcars' dataset</span></span>
-<span id="cb22-3"><a href=""></a><span class="in">data &lt;- mtcars</span></span>
-<span id="cb22-4"><a href=""></a></span>
-<span id="cb22-5"><a href=""></a><span class="in"># Calculate correlation coefficient</span></span>
-<span id="cb22-6"><a href=""></a><span class="in">correlation &lt;- cor(data$mpg, data$wt)</span></span>
-<span id="cb22-7"><a href=""></a></span>
-<span id="cb22-8"><a href=""></a><span class="in"># Create scatter plot</span></span>
-<span id="cb22-9"><a href=""></a><span class="in">ggplot(data, aes(x = wt, y = mpg)) +</span></span>
-<span id="cb22-10"><a href=""></a><span class="in">  geom_point(color = "blue", alpha = 0.7) +</span></span>
-<span id="cb22-11"><a href=""></a><span class="in">  labs(</span></span>
-<span id="cb22-12"><a href=""></a><span class="in">    title = "Scatter Plot of Miles Per Gallon vs Car Weight",</span></span>
-<span id="cb22-13"><a href=""></a><span class="in">    x = "Car Weight (1000 lbs)",</span></span>
-<span id="cb22-14"><a href=""></a><span class="in">    y = "Miles Per Gallon (MPG)"</span></span>
-<span id="cb22-15"><a href=""></a><span class="in">  ) +</span></span>
-<span id="cb22-16"><a href=""></a><span class="in">  annotate("text", </span></span>
-<span id="cb22-17"><a href=""></a><span class="in">           x = max(data$wt) * 0.7, </span></span>
-<span id="cb22-18"><a href=""></a><span class="in">           y = max(data$mpg) * 0.9, </span></span>
-<span id="cb22-19"><a href=""></a><span class="in">           label = paste("Correlation:", round(correlation, 2)),</span></span>
-<span id="cb22-20"><a href=""></a><span class="in">           size = 6,</span></span>
-<span id="cb22-21"><a href=""></a><span class="in">           color = "red") +</span></span>
-<span id="cb22-22"><a href=""></a><span class="in">  theme_minimal()</span></span>
-<span id="cb22-23"><a href=""></a><span class="in">```</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb23"><pre class="sourceCode numberSource markdown number-lines code-with-copy"><code class="sourceCode markdown"><span id="cb23-1"><a href=""></a><span class="in">```{r}</span></span>
+<span id="cb23-2"><a href=""></a><span class="in"># Use the built-in 'mtcars' dataset</span></span>
+<span id="cb23-3"><a href=""></a><span class="in">data &lt;- mtcars</span></span>
+<span id="cb23-4"><a href=""></a></span>
+<span id="cb23-5"><a href=""></a><span class="in"># Calculate correlation coefficient</span></span>
+<span id="cb23-6"><a href=""></a><span class="in">correlation &lt;- cor(data$mpg, data$wt)</span></span>
+<span id="cb23-7"><a href=""></a></span>
+<span id="cb23-8"><a href=""></a><span class="in"># Create scatter plot</span></span>
+<span id="cb23-9"><a href=""></a><span class="in">ggplot(data, aes(x = wt, y = mpg)) +</span></span>
+<span id="cb23-10"><a href=""></a><span class="in">  geom_point(color = "blue", alpha = 0.7) +</span></span>
+<span id="cb23-11"><a href=""></a><span class="in">  labs(</span></span>
+<span id="cb23-12"><a href=""></a><span class="in">    title = "Scatter Plot of Miles Per Gallon vs Car Weight",</span></span>
+<span id="cb23-13"><a href=""></a><span class="in">    x = "Car Weight (1000 lbs)",</span></span>
+<span id="cb23-14"><a href=""></a><span class="in">    y = "Miles Per Gallon (MPG)"</span></span>
+<span id="cb23-15"><a href=""></a><span class="in">  ) +</span></span>
+<span id="cb23-16"><a href=""></a><span class="in">  annotate("text", </span></span>
+<span id="cb23-17"><a href=""></a><span class="in">           x = max(data$wt) * 0.7, </span></span>
+<span id="cb23-18"><a href=""></a><span class="in">           y = max(data$mpg) * 0.9, </span></span>
+<span id="cb23-19"><a href=""></a><span class="in">           label = paste("Correlation:", round(correlation, 2)),</span></span>
+<span id="cb23-20"><a href=""></a><span class="in">           size = 6,</span></span>
+<span id="cb23-21"><a href=""></a><span class="in">           color = "red") +</span></span>
+<span id="cb23-22"><a href=""></a><span class="in">  theme_minimal()</span></span>
+<span id="cb23-23"><a href=""></a><span class="in">```</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div><div class="column" style="width:70%;">
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="index_files/figure-revealjs/unnamed-chunk-28-1.png" class="quarto-figure quarto-figure-center" width="768"></p>
+<p><img data-src="index_files/figure-revealjs/unnamed-chunk-29-1.png" class="quarto-figure quarto-figure-center" width="768"></p>
 </figure>
 </div>
 </div>
+</div>
+</div></div>
+</section>
+<section id="correlation-vs-causation" class="slide level2">
+<h2>Correlation vs Causation</h2>
+<ul>
+<li><p>two things that goes together may not necessarily mean that there is causation</p></li>
+<li><p>one variable can be strongly related to another, yet not cause it.</p></li>
+<li><p>Correlation does not imply causality.</p></li>
+</ul>
+<p><br></p>
+
+<img data-src="https://nulib.github.io/moderndive_book/images/causation.png" class="quarto-figure quarto-figure-center r-stretch"></section>
+<section id="correlation-2" class="slide level2">
+<h2>Correlation</h2>
+<table class="caption-top" style="width:99%;">
+<colgroup>
+<col style="width: 10%">
+<col style="width: 21%">
+<col style="width: 66%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Type</th>
+<th>Data type</th>
+<th>When to use</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><ul>
+<li>Pearson</li>
+</ul></td>
+<td><ul>
+<li>Continuous</li>
+<li>Normally distributed</li>
+</ul></td>
+<td><ul>
+<li>both variables are continuous and normally distributed and the relationship is linear</li>
+</ul></td>
+</tr>
+<tr class="even">
+<td><ul>
+<li>Spearman</li>
+</ul></td>
+<td><ul>
+<li>Continuous (non-normal)</li>
+<li>Ordinal</li>
+</ul></td>
+<td><ul>
+<li>when data is ordinal, or the relationship is monotonic but not linear</li>
+</ul></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="pearson-correlation" class="slide level2">
+<h2>Pearson correlation</h2>
+<div class="callout callout-tip callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>R activity</strong></p>
+</div>
+<div class="callout-content">
+<p>Test if there is a relationship between mpg and car weight using <code>mtcars</code> dataset.</p>
+</div>
+</div>
+</div>
+<div class="columns">
+<div class="column" style="width:50%;">
+<p>Step 1: read in data</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href=""></a><span class="fu">data</span>(mtcars)</span>
+<span id="cb24-2"><a href=""></a><span class="fu">head</span>(mtcars)</span>
+<span id="cb24-3"><a href=""></a>                   mpg cyl disp  hp drat    wt  qsec vs am gear carb</span>
+<span id="cb24-4"><a href=""></a>Mazda RX4         <span class="fl">21.0</span>   <span class="dv">6</span>  <span class="dv">160</span> <span class="dv">110</span> <span class="fl">3.90</span> <span class="fl">2.620</span> <span class="fl">16.46</span>  <span class="dv">0</span>  <span class="dv">1</span>    <span class="dv">4</span>    <span class="dv">4</span></span>
+<span id="cb24-5"><a href=""></a>Mazda RX4 Wag     <span class="fl">21.0</span>   <span class="dv">6</span>  <span class="dv">160</span> <span class="dv">110</span> <span class="fl">3.90</span> <span class="fl">2.875</span> <span class="fl">17.02</span>  <span class="dv">0</span>  <span class="dv">1</span>    <span class="dv">4</span>    <span class="dv">4</span></span>
+<span id="cb24-6"><a href=""></a>Datsun <span class="dv">710</span>        <span class="fl">22.8</span>   <span class="dv">4</span>  <span class="dv">108</span>  <span class="dv">93</span> <span class="fl">3.85</span> <span class="fl">2.320</span> <span class="fl">18.61</span>  <span class="dv">1</span>  <span class="dv">1</span>    <span class="dv">4</span>    <span class="dv">1</span></span>
+<span id="cb24-7"><a href=""></a>Hornet <span class="dv">4</span> Drive    <span class="fl">21.4</span>   <span class="dv">6</span>  <span class="dv">258</span> <span class="dv">110</span> <span class="fl">3.08</span> <span class="fl">3.215</span> <span class="fl">19.44</span>  <span class="dv">1</span>  <span class="dv">0</span>    <span class="dv">3</span>    <span class="dv">1</span></span>
+<span id="cb24-8"><a href=""></a>Hornet Sportabout <span class="fl">18.7</span>   <span class="dv">8</span>  <span class="dv">360</span> <span class="dv">175</span> <span class="fl">3.15</span> <span class="fl">3.440</span> <span class="fl">17.02</span>  <span class="dv">0</span>  <span class="dv">0</span>    <span class="dv">3</span>    <span class="dv">2</span></span>
+<span id="cb24-9"><a href=""></a>Valiant           <span class="fl">18.1</span>   <span class="dv">6</span>  <span class="dv">225</span> <span class="dv">105</span> <span class="fl">2.76</span> <span class="fl">3.460</span> <span class="fl">20.22</span>  <span class="dv">1</span>  <span class="dv">0</span>    <span class="dv">3</span>    <span class="dv">1</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div><div class="column" style="width:50%;">
+<p>Step 2: normality test</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href=""></a><span class="fu">shapiro.test</span>(mtcars<span class="sc">$</span>wt)</span>
+<span id="cb25-2"><a href=""></a></span>
+<span id="cb25-3"><a href=""></a>    Shapiro<span class="sc">-</span>Wilk normality test</span>
+<span id="cb25-4"><a href=""></a></span>
+<span id="cb25-5"><a href=""></a>data<span class="sc">:</span>  mtcars<span class="sc">$</span>wt</span>
+<span id="cb25-6"><a href=""></a>W <span class="ot">=</span> <span class="fl">0.94326</span>, p<span class="sc">-</span>value <span class="ot">=</span> <span class="fl">0.09265</span></span>
+<span id="cb25-7"><a href=""></a><span class="fu">shapiro.test</span>(mtcars<span class="sc">$</span>mpg)</span>
+<span id="cb25-8"><a href=""></a></span>
+<span id="cb25-9"><a href=""></a>    Shapiro<span class="sc">-</span>Wilk normality test</span>
+<span id="cb25-10"><a href=""></a></span>
+<span id="cb25-11"><a href=""></a>data<span class="sc">:</span>  mtcars<span class="sc">$</span>mpg</span>
+<span id="cb25-12"><a href=""></a>W <span class="ot">=</span> <span class="fl">0.94756</span>, p<span class="sc">-</span>value <span class="ot">=</span> <span class="fl">0.1229</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div></div>
+</section>
+<section id="pearson-correlation-1" class="slide level2">
+<h2>Pearson correlation</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<p>Step 3: Create scatterplot</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href=""></a>mtcars <span class="sc">|&gt;</span> </span>
+<span id="cb26-2"><a href=""></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(wt, mpg)) <span class="sc">+</span></span>
+<span id="cb26-3"><a href=""></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="dv">2</span>) <span class="sc">+</span></span>
+<span id="cb26-4"><a href=""></a>  <span class="fu">theme_minimal</span>(<span class="at">base_size =</span> <span class="dv">12</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="index_files/figure-revealjs/unnamed-chunk-33-1.png" class="quarto-figure quarto-figure-center" width="768"></p>
+</figure>
+</div>
+</div>
+</div>
+</div><div class="column" style="width:50%;">
+<p>Step 4: Perform pearson correlation</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href=""></a><span class="fu">cor.test</span>(mtcars<span class="sc">$</span>mpg, mtcars<span class="sc">$</span>wt, <span class="at">method =</span> <span class="st">"pearson"</span>)</span>
+<span id="cb27-2"><a href=""></a></span>
+<span id="cb27-3"><a href=""></a>    Pearson<span class="st">'s product-moment correlation</span></span>
+<span id="cb27-4"><a href=""></a></span>
+<span id="cb27-5"><a href=""></a><span class="st">data:  mtcars$mpg and mtcars$wt</span></span>
+<span id="cb27-6"><a href=""></a><span class="st">t = -9.559, df = 30, p-value = 1.294e-10</span></span>
+<span id="cb27-7"><a href=""></a><span class="st">alternative hypothesis: true correlation is not equal to 0</span></span>
+<span id="cb27-8"><a href=""></a><span class="st">95 percent confidence interval:</span></span>
+<span id="cb27-9"><a href=""></a><span class="st"> -0.9338264 -0.7440872</span></span>
+<span id="cb27-10"><a href=""></a><span class="st">sample estimates:</span></span>
+<span id="cb27-11"><a href=""></a><span class="st">       cor </span></span>
+<span id="cb27-12"><a href=""></a><span class="st">-0.8676594 </span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div></div>
+</section>
+<section id="spearman-correlation" class="slide level2">
+<h2>Spearman correlation</h2>
+<div class="callout callout-tip callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>R activity</strong></p>
+</div>
+<div class="callout-content">
+<p>Test if there is a relationship between mpg and car horse power using <code>mtcars</code> dataset.</p>
+</div>
+</div>
+</div>
+<div class="columns">
+<div class="column" style="width:50%;">
+<p>Step 1: read in data</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href=""></a><span class="fu">data</span>(mtcars)</span>
+<span id="cb28-2"><a href=""></a><span class="fu">head</span>(mtcars)</span>
+<span id="cb28-3"><a href=""></a>                   mpg cyl disp  hp drat    wt  qsec vs am gear carb</span>
+<span id="cb28-4"><a href=""></a>Mazda RX4         <span class="fl">21.0</span>   <span class="dv">6</span>  <span class="dv">160</span> <span class="dv">110</span> <span class="fl">3.90</span> <span class="fl">2.620</span> <span class="fl">16.46</span>  <span class="dv">0</span>  <span class="dv">1</span>    <span class="dv">4</span>    <span class="dv">4</span></span>
+<span id="cb28-5"><a href=""></a>Mazda RX4 Wag     <span class="fl">21.0</span>   <span class="dv">6</span>  <span class="dv">160</span> <span class="dv">110</span> <span class="fl">3.90</span> <span class="fl">2.875</span> <span class="fl">17.02</span>  <span class="dv">0</span>  <span class="dv">1</span>    <span class="dv">4</span>    <span class="dv">4</span></span>
+<span id="cb28-6"><a href=""></a>Datsun <span class="dv">710</span>        <span class="fl">22.8</span>   <span class="dv">4</span>  <span class="dv">108</span>  <span class="dv">93</span> <span class="fl">3.85</span> <span class="fl">2.320</span> <span class="fl">18.61</span>  <span class="dv">1</span>  <span class="dv">1</span>    <span class="dv">4</span>    <span class="dv">1</span></span>
+<span id="cb28-7"><a href=""></a>Hornet <span class="dv">4</span> Drive    <span class="fl">21.4</span>   <span class="dv">6</span>  <span class="dv">258</span> <span class="dv">110</span> <span class="fl">3.08</span> <span class="fl">3.215</span> <span class="fl">19.44</span>  <span class="dv">1</span>  <span class="dv">0</span>    <span class="dv">3</span>    <span class="dv">1</span></span>
+<span id="cb28-8"><a href=""></a>Hornet Sportabout <span class="fl">18.7</span>   <span class="dv">8</span>  <span class="dv">360</span> <span class="dv">175</span> <span class="fl">3.15</span> <span class="fl">3.440</span> <span class="fl">17.02</span>  <span class="dv">0</span>  <span class="dv">0</span>    <span class="dv">3</span>    <span class="dv">2</span></span>
+<span id="cb28-9"><a href=""></a>Valiant           <span class="fl">18.1</span>   <span class="dv">6</span>  <span class="dv">225</span> <span class="dv">105</span> <span class="fl">2.76</span> <span class="fl">3.460</span> <span class="fl">20.22</span>  <span class="dv">1</span>  <span class="dv">0</span>    <span class="dv">3</span>    <span class="dv">1</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div><div class="column" style="width:50%;">
+<p>Step 2: normality test</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href=""></a><span class="fu">shapiro.test</span>(mtcars<span class="sc">$</span>hp)</span>
+<span id="cb29-2"><a href=""></a></span>
+<span id="cb29-3"><a href=""></a>    Shapiro<span class="sc">-</span>Wilk normality test</span>
+<span id="cb29-4"><a href=""></a></span>
+<span id="cb29-5"><a href=""></a>data<span class="sc">:</span>  mtcars<span class="sc">$</span>hp</span>
+<span id="cb29-6"><a href=""></a>W <span class="ot">=</span> <span class="fl">0.93342</span>, p<span class="sc">-</span>value <span class="ot">=</span> <span class="fl">0.04881</span></span>
+<span id="cb29-7"><a href=""></a><span class="fu">shapiro.test</span>(mtcars<span class="sc">$</span>mpg)</span>
+<span id="cb29-8"><a href=""></a></span>
+<span id="cb29-9"><a href=""></a>    Shapiro<span class="sc">-</span>Wilk normality test</span>
+<span id="cb29-10"><a href=""></a></span>
+<span id="cb29-11"><a href=""></a>data<span class="sc">:</span>  mtcars<span class="sc">$</span>mpg</span>
+<span id="cb29-12"><a href=""></a>W <span class="ot">=</span> <span class="fl">0.94756</span>, p<span class="sc">-</span>value <span class="ot">=</span> <span class="fl">0.1229</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div></div>
+</section>
+<section id="spearman-correlation-1" class="slide level2">
+<h2>Spearman correlation</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<p>Step 3: Create scatterplot</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href=""></a>mtcars <span class="sc">|&gt;</span> </span>
+<span id="cb30-2"><a href=""></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(hp, mpg)) <span class="sc">+</span></span>
+<span id="cb30-3"><a href=""></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="dv">2</span>) <span class="sc">+</span></span>
+<span id="cb30-4"><a href=""></a>  <span class="fu">theme_minimal</span>(<span class="at">base_size =</span> <span class="dv">12</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="index_files/figure-revealjs/unnamed-chunk-37-1.png" class="quarto-figure quarto-figure-center" width="768"></p>
+</figure>
+</div>
+</div>
+</div>
+</div><div class="column" style="width:50%;">
+<p>Step 4: Perform spearman correlation</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href=""></a><span class="fu">cor.test</span>(mtcars<span class="sc">$</span>mpg, mtcars<span class="sc">$</span>wt, <span class="at">method =</span> <span class="st">"spearman"</span>)</span>
+<span id="cb31-2"><a href=""></a></span>
+<span id="cb31-3"><a href=""></a>    Spearman<span class="st">'s rank correlation rho</span></span>
+<span id="cb31-4"><a href=""></a></span>
+<span id="cb31-5"><a href=""></a><span class="st">data:  mtcars$mpg and mtcars$wt</span></span>
+<span id="cb31-6"><a href=""></a><span class="st">S = 10292, p-value = 1.488e-11</span></span>
+<span id="cb31-7"><a href=""></a><span class="st">alternative hypothesis: true rho is not equal to 0</span></span>
+<span id="cb31-8"><a href=""></a><span class="st">sample estimates:</span></span>
+<span id="cb31-9"><a href=""></a><span class="st">      rho </span></span>
+<span id="cb31-10"><a href=""></a><span class="st">-0.886422 </span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div></div>
 <div class="quarto-auto-generated-content">
