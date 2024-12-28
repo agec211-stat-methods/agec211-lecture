@@ -679,6 +679,12 @@ ggwithinstats(
 
 ## comparing more than two groups
 
+```{r}
+knitr::include_graphics("plot/comparison-two-groups.png")
+```
+
+## comparing more than two groups
+
 <br>
 
 +--------------------------------------------------------------------------------------------------------------------------------------------+----------------------------------------------------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------+
@@ -815,5 +821,181 @@ report::report(aov_result)
 ```
 :::
 :::::
+
+## One-way ANOVA
+
+::::: columns
+::: {.column width="30%"}
+```{{r}}
+ggbetweenstats(
+  data = exam_data,
+  x = group,
+  y = exam,
+  title = "One-way ANOVA"
+)
+```
+:::
+
+::: {.column width="70%"}
+```{r}
+#| echo: false
+#| fig-align: center
+#| fig-height: 6
+#| fig-width: 8
+
+ggbetweenstats(
+  data = exam_data,
+  x = group,
+  y = exam,
+  title = "One-way ANOVA"
+) +
+  theme_minimal(base_size = 12)
+```
+:::
+:::::
+
+## Kruskal-Wallis test
+
+::::: columns
+::: {.column width="50%"}
+Step 1: read in data
+:::
+
+::: {.column width="50%"}
+Step 2: create boxplot
+
+```{r}
+#| echo: true
+boxplot(
+  data = exam_data,
+  exam ~ group
+)
+```
+:::
+:::::
+
+## Kruskal-Wallist test
+
+::::: columns
+::: {.column width="50%"}
+Step 3: run the test
+
+```{r}
+#| echo: true
+
+kruskal.test(data = exam_data, exam ~ group)
+```
+:::
+
+::: {.column width="50%"}
+Step 4: Post-hoc test
+
+```{r}
+#| echo: true
+pairwise.wilcox.test(exam_data$exam, exam_data$group, p.adjust.method = "BH")
+```
+:::
+:::::
+
+# Correlation Analysis
+
+## Correlation
+
+-   Is a measure of association between two quantitative variables.
+
+-   Purpose is to measure the strength and direction of the relationship between two variables.
+
+
+$$
+r_{xy} = \frac{\Sigma_{i=1}^n (x_i - \bar x) (y_i - \bar y)}{\sqrt{\Sigma_{i=1}^n (x_i - \bar x)^2 (y_i - \bar y)^2}}
+$$
+
+## Correlation coefficient interpretation
+
+| Correlation coefficient | Psychology | Politics and economics |  Medicine   |
+|:-----------------------:|:----------:|:----------------------:|:-----------:|
+|          ± 1.0          |  Perfect   |        Perfect         |   Perfect   |
+|          ± 0.9          |   Strong   |      Very strong       | Very strong |
+|          ± 0.8          |   Strong   |      Very strong       | Very strong |
+|          ± 0.7          |   Strong   |      Very strong       |  Moderate   |
+|          ± 0.6          |  Moderate  |         Strong         |  Moderate   |
+|          ± 0.5          |  Moderate  |         Strong         |    Fair     |
+|          ± 0.4          |  Moderate  |         Strong         |    Fair     |
+|          ± 0.3          |    Weak    |        Moderate        |    Fair     |
+|          ± 0.2          |    Weak    |          Weak          |    Poor     |
+|          ± 0.1          |    Weak    |       Negligible       |    Poor     |
+|          ± 0.0          |    Zero    |          None          |    None     |
+
+
+::: aside
+Source: Akoglu, H. (2018). User’s guide to correlation coefficients. Turkish Journal of Emergency Medicine, 18(3), 91–93. https://doi.org/10.1016/j.tjem.2018.08.001
+:::
+
+
+## Correlation
+
+
+:::: {.columns}
+
+::: {.column width="30%"}
+```{{r}}
+# Use the built-in 'mtcars' dataset
+data <- mtcars
+
+# Calculate correlation coefficient
+correlation <- cor(data$mpg, data$wt)
+
+# Create scatter plot
+ggplot(data, aes(x = wt, y = mpg)) +
+  geom_point(color = "blue", alpha = 0.7) +
+  labs(
+    title = "Scatter Plot of Miles Per Gallon vs Car Weight",
+    x = "Car Weight (1000 lbs)",
+    y = "Miles Per Gallon (MPG)"
+  ) +
+  annotate("text", 
+           x = max(data$wt) * 0.7, 
+           y = max(data$mpg) * 0.9, 
+           label = paste("Correlation:", round(correlation, 2)),
+           size = 6,
+           color = "red") +
+  theme_minimal()
+```
+
+:::
+
+::: {.column width="70%"}
+```{r}
+#| echo: false
+#| fig-align: center
+#| fig-height: 6
+#| fig-width: 8
+
+# Use the built-in 'mtcars' dataset
+data <- mtcars
+
+# Calculate correlation coefficient
+correlation <- cor(data$mpg, data$wt)
+
+# Create scatter plot
+ggplot(data, aes(x = wt, y = mpg)) +
+  geom_point(color = "blue", alpha = 0.7) +
+  labs(
+    title = "Scatter Plot of Miles Per Gallon vs Car Weight",
+    x = "Car Weight (1000 lbs)",
+    y = "Miles Per Gallon (MPG)"
+  ) +
+  annotate("text", 
+           x = max(data$wt) * 0.7, 
+           y = max(data$mpg) * 0.9, 
+           label = paste("Correlation:", round(correlation, 2)),
+           size = 6,
+           color = "red") +
+  theme_minimal(base_size = 12)
+```
+
+:::
+
+::::
 
 
