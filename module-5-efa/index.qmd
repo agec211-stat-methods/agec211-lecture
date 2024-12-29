@@ -1370,8 +1370,135 @@ $$
 y = \beta_0 + \beta_1 x_1 + \beta_2 x_2 + ... + b_k x_k
 $$
 
+## Multiple linear regression
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+## Multiple linear regression
+
+:::{.callout-tip}
+## Example in R
+
+A distributor of frozen desert pies wants to evaluate the factors affecting the demand of pie. Data are collected for 15 weeks.
+
+:::
+
+
+## Multiple linear regression
+
+:::: {.columns}
+
+::: {.column width="30%"}
+Step 1: import dataset
+
+```{r}
+#| echo: true
+
+## import synthetic data
+df <- tibble(
+  Week = 1:15,
+  Pie_Sales = c(350, 460, 350, 430, 350, 380, 430, 470, 450, 490, 340, 300, 440, 450, 300),
+  Price = c(5.50, 7.50, 8.00, 8.00, 6.80, 7.50, 4.50, 6.40, 7.00, 5.00, 7.20, 7.90, 5.90, 5.00, 7.00),
+  Advertising = c(3.3, 3.3, 3.0, 4.5, 3.0, 4.0, 3.0, 3.7, 3.5, 4.0, 3.5, 3.2, 4.0, 3.5, 2.7)
+)
+
+## print dataset
+head(df)
+
+```
+
+:::
+
+::: {.column width="70%"}
+Step 2: Create a scatter plot
+
+```{r}
+#| fig-align: center
+#| fig-height: 6
+#| fig-width: 8
+
+library(plotly)
+
+fig <- plot_ly(
+  df, 
+  x = ~Price, 
+  y = ~Advertising, 
+  z = ~Pie_Sales, 
+  type = "scatter3d", 
+  mode = "markers",
+  marker = list(size = 5, color = ~Pie_Sales, colorscale = "Viridis", showscale = TRUE)
+) %>%
+  layout(
+    title = "3D Scatter Plot: Pie Sales vs Price and Advertising",
+    scene = list(
+      xaxis = list(title = "Price"),
+      yaxis = list(title = "Advertising"),
+      zaxis = list(title = "Pie Sales")
+    )
+  )
+
+# Display the plot
+fig
+
+  
+```
+
+:::
+
+::::
+
+
+## Multiple linear regression
+
+:::: {.columns}
+
+::: {.column width="50%"}
+Step 3: Estimate the model
+
+```{r}
+#| echo: true
+
+## estimating linear regression
+model <- lm(Pie_Sales ~ Price + Advertising, data = df)
+
+## printing model summary
+summary(model)
+```
+
+
+:::
+
+::: {.column width="50%"}
+Step 4: Interpret results
+
+- $\beta_1$ (Price): -24.98
+  
+  - pie sales will decrease, on average, by 24.98 pies per week for each 1 unit increase in selling price, net of the effects of changes due to advertising.
+  
+
+- $\beta_2$ (Advertising): 74.13
+  
+  - sales will increase, on average, by 74.13 pies per week for each $1 increase in advertising, net of the effects of changes due to price.
+  
+
+:::
+
+::::
 
 
 
