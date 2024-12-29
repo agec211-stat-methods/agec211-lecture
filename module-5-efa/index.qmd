@@ -1200,3 +1200,183 @@ cor.test(mtcars$mpg, mtcars$wt, method = "spearman")
 
 ::::
 
+
+# Introduction to regression analysis
+
+
+## Simple linear regression
+
+- a linear regression with one independent variable (explanatory variable), and one dependent variable (response variable).
+
+- regression equation
+
+$$
+y = a + bx
+$$
+
+
+## Simple linear regression
+
+```{r}
+#| fig-align: center
+#| fig-height: 5
+#| fig-width: 10
+
+# Parameters for the equation
+a <- 2  # Intercept
+b <- 3  # Slope
+
+# Generate data for the line
+x <- seq(-10, 10, by = 0.5)
+y <- a + b * x
+data <- data.frame(x = x, y = y)
+
+# Generate random points around the line
+set.seed(42)  # For reproducibility
+points <- data.frame(
+  x = runif(30, min = -10, max = 10),  # Random x-values
+  y = a + b * runif(30, min = -10, max = 10) + rnorm(30, sd = 5)  # Add noise to y
+)
+
+# Create plot
+ggplot() +
+  geom_line(data = data, aes(x = x, y = y), color = "blue", size = 1) +  # Line for y = a + bx
+  geom_point(data = points, aes(x = x, y = y), color = "red", size = 2) +  # Random points
+  annotate(
+    "text", x = 5, y = 15, 
+    label = paste("y =", a, "+", b, "x"), 
+    color = "darkgreen", size = 5, hjust = 0
+  ) +
+  labs(
+    caption = "Plot of y = a + bx with Scatter Points",
+    x = "x",
+    y = "y"
+  ) +
+  theme_minimal(base_size = 12) +
+  theme(plot.caption = element_text(hjust = 0.5, margin = margin(t=15), size = 14))
+```
+
+
+## Simple linear regression
+
+
+```{r}
+knitr::include_graphics("plot/simle-linear-reg.png")
+```
+
+
+## Simple linear regression
+
+:::{.callout-tip}
+## Example in R
+
+A distributor of frozen desert pies wants to evaluate the effect of price to the demand of pie. Data are collected for 15 weeks.
+
+:::
+
+
+## Simple linear regression
+
+:::: {.columns}
+
+::: {.column width="30%"}
+Step 1: import dataset
+
+```{r}
+#| echo: true
+
+## import synthetic data
+df <- tibble(
+  Week = 1:15,
+  Pie_Sales = c(350, 460, 350, 430, 350, 380, 430, 470, 450, 490, 340, 300, 440, 450, 300),
+  Price = c(5.50, 7.50, 8.00, 8.00, 6.80, 7.50, 4.50, 6.40, 7.00, 5.00, 7.20, 7.90, 5.90, 5.00, 7.00),
+  Advertising = c(3.3, 3.3, 3.0, 4.5, 3.0, 4.0, 3.0, 3.7, 3.5, 4.0, 3.5, 3.2, 4.0, 3.5, 2.7)
+)
+
+## print dataset
+head(df)
+
+```
+
+:::
+
+::: {.column width="70%"}
+Step 2: Create a scatter plot
+
+```{r}
+#| fig-align: center
+#| fig-height: 6
+#| fig-width: 8
+
+
+df |> ggplot(aes(Price, Pie_Sales)) +
+  geom_point() +
+  geom_smooth(method = "lm", se = FALSE) +
+  scale_x_continuous(limits = c(4, 10)) +
+  scale_y_continuous(limits = c(200, 500)) +
+  theme_minimal(base_size = 14)
+  
+```
+
+:::
+
+::::
+
+
+## Simple linear regression
+
+:::: {.columns}
+
+::: {.column width="50%"}
+Step 3: Estimate the model
+
+```{r}
+#| echo: true
+
+## estimating linear regression
+model <- lm(Pie_Sales ~ Price, data = df)
+
+## printing model summary
+summary(model)
+```
+
+
+:::
+
+::: {.column width="50%"}
+Step 4: Interpret results
+
+- y-intercept (a): 558.28
+
+  - estimated average value of $y$ when all $x_i = 0$ 
+  
+- slope (b): -24.03
+
+  - estimates the average value of y changes by $b_i$ units for each 1 unit increase in $x_i$ holding other variables constant.
+  
+  - example: a 1 unit increase in price decreases the pie sales by 24.03 pies per week.
+:::
+
+::::
+
+
+## Multiple linear regression
+
+- a linear regression with one or more independent variable (explanatory variable), and one dependent variable (response variable).
+
+- multiple regression model
+
+$$
+y = \beta_0 + \beta_1 x_1 + \beta_2 x_2 + ... + b_k x_k
+$$
+
+
+
+
+
+
+
+
+
+
+

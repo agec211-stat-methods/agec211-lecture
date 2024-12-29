@@ -1802,6 +1802,139 @@ r_{xy} = \frac{\Sigma_{i=1}^n (x_i - \bar x) (y_i - \bar y)}{\sqrt{\Sigma_{i=1}^
 <span id="cb31-10"><a href=""></a><span class="st">-0.886422 </span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div></div>
+</section></section>
+<section>
+<section id="introduction-to-regression-analysis" class="title-slide slide level1 center">
+<h1>Introduction to regression analysis</h1>
+
+</section>
+<section id="simple-linear-regression" class="slide level2">
+<h2>Simple linear regression</h2>
+<ul>
+<li><p>a linear regression with one independent variable (explanatory variable), and one dependent variable (response variable).</p></li>
+<li><p>regression equation</p></li>
+</ul>
+<p><span class="math display">\[
+y = a + bx
+\]</span></p>
+</section>
+<section id="simple-linear-regression-1" class="slide level2">
+<h2>Simple linear regression</h2>
+
+<img data-src="index_files/figure-revealjs/unnamed-chunk-39-1.png" class="quarto-figure quarto-figure-center r-stretch" width="960"></section>
+<section id="simple-linear-regression-2" class="slide level2">
+<h2>Simple linear regression</h2>
+
+<img data-src="plot/simle-linear-reg.png" class="quarto-figure quarto-figure-center r-stretch" width="960"></section>
+<section id="simple-linear-regression-3" class="slide level2">
+<h2>Simple linear regression</h2>
+<div class="callout callout-tip callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Example in R</strong></p>
+</div>
+<div class="callout-content">
+<p>A distributor of frozen desert pies wants to evaluate the effect of price to the demand of pie. Data are collected for 15 weeks.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="simple-linear-regression-4" class="slide level2">
+<h2>Simple linear regression</h2>
+<div class="columns">
+<div class="column" style="width:30%;">
+<p>Step 1: import dataset</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href=""></a><span class="do">## import synthetic data</span></span>
+<span id="cb32-2"><a href=""></a>df <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
+<span id="cb32-3"><a href=""></a>  <span class="at">Week =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">15</span>,</span>
+<span id="cb32-4"><a href=""></a>  <span class="at">Pie_Sales =</span> <span class="fu">c</span>(<span class="dv">350</span>, <span class="dv">460</span>, <span class="dv">350</span>, <span class="dv">430</span>, <span class="dv">350</span>, <span class="dv">380</span>, <span class="dv">430</span>, <span class="dv">470</span>, <span class="dv">450</span>, <span class="dv">490</span>, <span class="dv">340</span>, <span class="dv">300</span>, <span class="dv">440</span>, <span class="dv">450</span>, <span class="dv">300</span>),</span>
+<span id="cb32-5"><a href=""></a>  <span class="at">Price =</span> <span class="fu">c</span>(<span class="fl">5.50</span>, <span class="fl">7.50</span>, <span class="fl">8.00</span>, <span class="fl">8.00</span>, <span class="fl">6.80</span>, <span class="fl">7.50</span>, <span class="fl">4.50</span>, <span class="fl">6.40</span>, <span class="fl">7.00</span>, <span class="fl">5.00</span>, <span class="fl">7.20</span>, <span class="fl">7.90</span>, <span class="fl">5.90</span>, <span class="fl">5.00</span>, <span class="fl">7.00</span>),</span>
+<span id="cb32-6"><a href=""></a>  <span class="at">Advertising =</span> <span class="fu">c</span>(<span class="fl">3.3</span>, <span class="fl">3.3</span>, <span class="fl">3.0</span>, <span class="fl">4.5</span>, <span class="fl">3.0</span>, <span class="fl">4.0</span>, <span class="fl">3.0</span>, <span class="fl">3.7</span>, <span class="fl">3.5</span>, <span class="fl">4.0</span>, <span class="fl">3.5</span>, <span class="fl">3.2</span>, <span class="fl">4.0</span>, <span class="fl">3.5</span>, <span class="fl">2.7</span>)</span>
+<span id="cb32-7"><a href=""></a>)</span>
+<span id="cb32-8"><a href=""></a></span>
+<span id="cb32-9"><a href=""></a><span class="do">## print dataset</span></span>
+<span id="cb32-10"><a href=""></a><span class="fu">head</span>(df)</span>
+<span id="cb32-11"><a href=""></a><span class="co"># A tibble: 6 × 4</span></span>
+<span id="cb32-12"><a href=""></a>   Week Pie_Sales Price Advertising</span>
+<span id="cb32-13"><a href=""></a>  <span class="sc">&lt;</span>int<span class="sc">&gt;</span>     <span class="er">&lt;</span>dbl<span class="sc">&gt;</span> <span class="er">&lt;</span>dbl<span class="sc">&gt;</span>       <span class="er">&lt;</span>dbl<span class="sc">&gt;</span></span>
+<span id="cb32-14"><a href=""></a><span class="dv">1</span>     <span class="dv">1</span>       <span class="dv">350</span>   <span class="fl">5.5</span>         <span class="fl">3.3</span></span>
+<span id="cb32-15"><a href=""></a><span class="dv">2</span>     <span class="dv">2</span>       <span class="dv">460</span>   <span class="fl">7.5</span>         <span class="fl">3.3</span></span>
+<span id="cb32-16"><a href=""></a><span class="dv">3</span>     <span class="dv">3</span>       <span class="dv">350</span>   <span class="dv">8</span>           <span class="dv">3</span>  </span>
+<span id="cb32-17"><a href=""></a><span class="dv">4</span>     <span class="dv">4</span>       <span class="dv">430</span>   <span class="dv">8</span>           <span class="fl">4.5</span></span>
+<span id="cb32-18"><a href=""></a><span class="dv">5</span>     <span class="dv">5</span>       <span class="dv">350</span>   <span class="fl">6.8</span>         <span class="dv">3</span>  </span>
+<span id="cb32-19"><a href=""></a><span class="dv">6</span>     <span class="dv">6</span>       <span class="dv">380</span>   <span class="fl">7.5</span>         <span class="dv">4</span>  </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div><div class="column" style="width:70%;">
+<p>Step 2: Create a scatter plot</p>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="index_files/figure-revealjs/unnamed-chunk-42-1.png" class="quarto-figure quarto-figure-center" width="768"></p>
+</figure>
+</div>
+</div>
+</div>
+</div></div>
+</section>
+<section id="simple-linear-regression-5" class="slide level2">
+<h2>Simple linear regression</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<p>Step 3: Estimate the model</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href=""></a><span class="do">## estimating linear regression</span></span>
+<span id="cb33-2"><a href=""></a>model <span class="ot">&lt;-</span> <span class="fu">lm</span>(Pie_Sales <span class="sc">~</span> Price, <span class="at">data =</span> df)</span>
+<span id="cb33-3"><a href=""></a></span>
+<span id="cb33-4"><a href=""></a><span class="do">## printing model summary</span></span>
+<span id="cb33-5"><a href=""></a><span class="fu">summary</span>(model)</span>
+<span id="cb33-6"><a href=""></a></span>
+<span id="cb33-7"><a href=""></a>Call<span class="sc">:</span></span>
+<span id="cb33-8"><a href=""></a><span class="fu">lm</span>(<span class="at">formula =</span> Pie_Sales <span class="sc">~</span> Price, <span class="at">data =</span> df)</span>
+<span id="cb33-9"><a href=""></a></span>
+<span id="cb33-10"><a href=""></a>Residuals<span class="sc">:</span></span>
+<span id="cb33-11"><a href=""></a>    Min      <span class="dv">1</span>Q  Median      <span class="dv">3</span>Q     Max </span>
+<span id="cb33-12"><a href=""></a><span class="sc">-</span><span class="fl">90.040</span> <span class="sc">-</span><span class="fl">45.040</span>   <span class="fl">1.977</span>  <span class="fl">55.926</span>  <span class="fl">81.977</span> </span>
+<span id="cb33-13"><a href=""></a></span>
+<span id="cb33-14"><a href=""></a>Coefficients<span class="sc">:</span></span>
+<span id="cb33-15"><a href=""></a>            Estimate Std. Error t value <span class="fu">Pr</span>(<span class="sc">&gt;</span><span class="er">|</span>t<span class="sc">|</span>)    </span>
+<span id="cb33-16"><a href=""></a>(Intercept)   <span class="fl">558.28</span>      <span class="fl">90.44</span>   <span class="fl">6.173</span> <span class="fl">3.36e-05</span> <span class="sc">**</span><span class="er">*</span></span>
+<span id="cb33-17"><a href=""></a>Price         <span class="sc">-</span><span class="fl">24.03</span>      <span class="fl">13.48</span>  <span class="sc">-</span><span class="fl">1.783</span>   <span class="fl">0.0979</span> .  </span>
+<span id="cb33-18"><a href=""></a><span class="sc">---</span></span>
+<span id="cb33-19"><a href=""></a>Signif. codes<span class="sc">:</span>  <span class="dv">0</span> <span class="st">'***'</span> <span class="fl">0.001</span> <span class="st">'**'</span> <span class="fl">0.01</span> <span class="st">'*'</span> <span class="fl">0.05</span> <span class="st">'.'</span> <span class="fl">0.1</span> <span class="st">' '</span> <span class="dv">1</span></span>
+<span id="cb33-20"><a href=""></a></span>
+<span id="cb33-21"><a href=""></a>Residual standard error<span class="sc">:</span> <span class="fl">59.09</span> on <span class="dv">13</span> degrees of freedom</span>
+<span id="cb33-22"><a href=""></a>Multiple R<span class="sc">-</span>squared<span class="sc">:</span>  <span class="fl">0.1965</span>,    Adjusted R<span class="sc">-</span>squared<span class="sc">:</span>  <span class="fl">0.1347</span> </span>
+<span id="cb33-23"><a href=""></a>F<span class="sc">-</span>statistic<span class="sc">:</span> <span class="fl">3.179</span> on <span class="dv">1</span> and <span class="dv">13</span> DF,  p<span class="sc">-</span>value<span class="sc">:</span> <span class="fl">0.09794</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div><div class="column" style="width:50%;">
+<p>Step 4: Interpret results</p>
+<ul>
+<li><p>y-intercept (a): 558.28</p>
+<ul>
+<li>estimated average value of <span class="math inline">\(y\)</span> when all <span class="math inline">\(x_i = 0\)</span></li>
+</ul></li>
+<li><p>slope (b): -24.03</p>
+<ul>
+<li><p>estimates the average value of y changes by <span class="math inline">\(b_i\)</span> units for each 1 unit increase in <span class="math inline">\(x_i\)</span> holding other variables constant.</p></li>
+<li><p>example: a 1 unit increase in price decreases the pie sales by 24.03 pies per week.</p></li>
+</ul></li>
+</ul>
+</div></div>
+</section>
+<section id="multiple-linear-regression" class="slide level2">
+<h2>Multiple linear regression</h2>
+<ul>
+<li><p>a linear regression with one or more independent variable (explanatory variable), and one dependent variable (response variable).</p></li>
+<li><p>multiple regression model</p></li>
+</ul>
+<p><span class="math display">\[
+y = \beta_0 + \beta_1 x_1 + \beta_2 x_2 + ... + b_k x_k
+\]</span></p>
 <div class="quarto-auto-generated-content">
 <div class="footer footer-default">
 <p>AgEc 211: Statistical Methods</p>
