@@ -1501,6 +1501,49 @@ Step 4: Interpret results
 ::::
 
 
+## Multiple linear regression
+
+<br>
+
+:::: {.columns}
+
+::: {.column width="30%"}
+```{r}
+#| echo: true
+#| eval: false
+
+library(sjPlot)
+
+tab_model(model, 
+          p.style = "stars", 
+          show.ci = FALSE, 
+          show.se = T, 
+          show.stat = TRUE)
+```
+:::
+
+::: {.column width="70%"}
+```{r}
+
+library(sjPlot)
+
+tab_model(model, 
+          p.style = "stars", 
+          show.ci = FALSE, 
+          show.se = T, 
+          show.stat = TRUE)
+```
+:::
+
+::::
+
+
+#
+
+```{r}
+knitr::include_graphics("plot/agec211-hex-logo.png")
+```
+
 
 
 

@@ -2004,7 +2004,7 @@ y = \beta_0 + \beta_1 x_1 + \beta_2 x_2 + ... + b_k x_k
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 <div class="plotly html-widget html-fill-item" id="htmlwidget-521fcff53b1c506bc878" style="width:768px;height:576px;"></div>
-<script type="application/json" data-for="htmlwidget-521fcff53b1c506bc878">{"x":{"visdat":{"55781ce75613":["function () ","plotlyVisDat"]},"cur_data":"55781ce75613","attrs":{"55781ce75613":{"x":{},"y":{},"z":{},"mode":"markers","marker":{"size":5,"color":{},"colorscale":"Viridis","showscale":true},"alpha_stroke":1,"sizes":[10,100],"spans":[1,20],"type":"scatter3d"}},"layout":{"margin":{"b":40,"l":60,"t":25,"r":10},"title":"3D Scatter Plot: Pie Sales vs Price and Advertising","scene":{"xaxis":{"title":"Price"},"yaxis":{"title":"Advertising"},"zaxis":{"title":"Pie Sales"}},"hovermode":"closest","showlegend":false},"source":"A","config":{"modeBarButtonsToAdd":["hoverclosest","hovercompare"],"showSendToCloud":false},"data":[{"x":[5.5,7.5,8,8,6.7999999999999998,7.5,4.5,6.4000000000000004,7,5,7.2000000000000002,7.9000000000000004,5.9000000000000004,5,7],"y":[3.2999999999999998,3.2999999999999998,3,4.5,3,4,3,3.7000000000000002,3.5,4,3.5,3.2000000000000002,4,3.5,2.7000000000000002],"z":[350,460,350,430,350,380,430,470,450,490,340,300,440,450,300],"mode":"markers","marker":{"color":[350,460,350,430,350,380,430,470,450,490,340,300,440,450,300],"size":5,"colorscale":"Viridis","showscale":true,"line":{"color":"rgba(31,119,180,1)"}},"type":"scatter3d","error_y":{"color":"rgba(31,119,180,1)"},"error_x":{"color":"rgba(31,119,180,1)"},"line":{"color":"rgba(31,119,180,1)"},"frame":null}],"highlight":{"on":"plotly_click","persistent":false,"dynamic":false,"selectize":false,"opacityDim":0.20000000000000001,"selected":{"opacity":1},"debounce":0},"shinyEvents":["plotly_hover","plotly_click","plotly_selected","plotly_relayout","plotly_brushed","plotly_brushing","plotly_clickannotation","plotly_doubleclick","plotly_deselect","plotly_afterplot","plotly_sunburstclick"],"base_url":"https://plot.ly"},"evals":[],"jsHooks":[]}</script>
+<script type="application/json" data-for="htmlwidget-521fcff53b1c506bc878">{"x":{"visdat":{"732072f92a85":["function () ","plotlyVisDat"]},"cur_data":"732072f92a85","attrs":{"732072f92a85":{"x":{},"y":{},"z":{},"mode":"markers","marker":{"size":5,"color":{},"colorscale":"Viridis","showscale":true},"alpha_stroke":1,"sizes":[10,100],"spans":[1,20],"type":"scatter3d"}},"layout":{"margin":{"b":40,"l":60,"t":25,"r":10},"title":"3D Scatter Plot: Pie Sales vs Price and Advertising","scene":{"xaxis":{"title":"Price"},"yaxis":{"title":"Advertising"},"zaxis":{"title":"Pie Sales"}},"hovermode":"closest","showlegend":false},"source":"A","config":{"modeBarButtonsToAdd":["hoverclosest","hovercompare"],"showSendToCloud":false},"data":[{"x":[5.5,7.5,8,8,6.7999999999999998,7.5,4.5,6.4000000000000004,7,5,7.2000000000000002,7.9000000000000004,5.9000000000000004,5,7],"y":[3.2999999999999998,3.2999999999999998,3,4.5,3,4,3,3.7000000000000002,3.5,4,3.5,3.2000000000000002,4,3.5,2.7000000000000002],"z":[350,460,350,430,350,380,430,470,450,490,340,300,440,450,300],"mode":"markers","marker":{"color":[350,460,350,430,350,380,430,470,450,490,340,300,440,450,300],"size":5,"colorscale":"Viridis","showscale":true,"line":{"color":"rgba(31,119,180,1)"}},"type":"scatter3d","error_y":{"color":"rgba(31,119,180,1)"},"error_x":{"color":"rgba(31,119,180,1)"},"line":{"color":"rgba(31,119,180,1)"},"frame":null}],"highlight":{"on":"plotly_click","persistent":false,"dynamic":false,"selectize":false,"opacityDim":0.20000000000000001,"selected":{"opacity":1},"debounce":0},"shinyEvents":["plotly_hover","plotly_click","plotly_selected","plotly_relayout","plotly_brushed","plotly_brushing","plotly_clickannotation","plotly_doubleclick","plotly_deselect","plotly_afterplot","plotly_sunburstclick"],"base_url":"https://plot.ly"},"evals":[],"jsHooks":[]}</script>
 </div>
 </div>
 </div></div>
@@ -2053,12 +2053,82 @@ y = \beta_0 + \beta_1 x_1 + \beta_2 x_2 + ... + b_k x_k
 </ul></li>
 </ul>
 </div></div>
-<div class="quarto-auto-generated-content">
+</section>
+<section id="multiple-linear-regression-5" class="slide level2">
+<h2>Multiple linear regression</h2>
+<p><br></p>
+<div class="columns">
+<div class="column" style="width:30%;">
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href=""></a><span class="fu">library</span>(sjPlot)</span>
+<span id="cb36-2"><a href=""></a></span>
+<span id="cb36-3"><a href=""></a><span class="fu">tab_model</span>(model, </span>
+<span id="cb36-4"><a href=""></a>          <span class="at">p.style =</span> <span class="st">"stars"</span>, </span>
+<span id="cb36-5"><a href=""></a>          <span class="at">show.ci =</span> <span class="cn">FALSE</span>, </span>
+<span id="cb36-6"><a href=""></a>          <span class="at">show.se =</span> T, </span>
+<span id="cb36-7"><a href=""></a>          <span class="at">show.stat =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div><div class="column" style="width:70%;">
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<table class="caption-top" data-quarto-postprocess="true" style="border-collapse:collapse; border:none;">
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th" style="text-align: center; border-top: double; font-style: normal; font-weight: bold; padding: 0.2cm;">&nbsp;</td>
+<td colspan="3" data-quarto-table-cell-role="th" style="text-align: center; border-top: double; font-style: normal; font-weight: bold; padding: 0.2cm;">Pie Sales</td>
+</tr>
+<tr class="even">
+<td style="text-align: center; border-bottom: 1px solid; font-style: italic; font-weight: normal;">Predictors</td>
+<td style="text-align: center; border-bottom: 1px solid; font-style: italic; font-weight: normal;">Estimates</td>
+<td style="text-align: center; border-bottom: 1px solid; font-style: italic; font-weight: normal;">std. Error</td>
+<td style="text-align: center; border-bottom: 1px solid; font-style: italic; font-weight: normal;">Statistic</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">(Intercept)</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">306.53 <sup>*</sup></td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">114.25</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">2.68</td>
+</tr>
+<tr class="even">
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">Price</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">-24.98 <sup>*</sup></td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">10.83</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">-2.31</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">Advertising</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">74.13 <sup>*</sup></td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">25.97</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">2.85</td>
+</tr>
+<tr class="even">
+<td style="text-align: left; padding: 0.2cm; vertical-align: top; padding-top: 0.1cm; padding-bottom: 0.1cm; border-top: 1px solid;">Observations</td>
+<td colspan="3" style="text-align: left; padding: 0.2cm; vertical-align: top; padding-top: 0.1cm; padding-bottom: 0.1cm; border-top: 1px solid;">15</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left; padding: 0.2cm; vertical-align: top; padding-top: 0.1cm; padding-bottom: 0.1cm;">R<sup>2</sup> / R<sup>2</sup> adjusted</td>
+<td colspan="3" style="text-align: left; padding: 0.2cm; vertical-align: top; padding-top: 0.1cm; padding-bottom: 0.1cm;">0.521 / 0.442</td>
+</tr>
+<tr class="even">
+<td colspan="4" style="text-align: right; font-style: italic; border-top: double black;">* p&lt;0.05&nbsp;&nbsp;&nbsp;** p&lt;0.01&nbsp;&nbsp;&nbsp;*** p&lt;0.001</td>
+</tr>
+</tbody>
+</table>
+
+
+</div>
+</div>
+</div></div>
+</section></section>
+<section id="section" class="title-slide slide level1 center">
+<h1></h1>
+
+<img data-src="plot/agec211-hex-logo.png" class="quarto-figure quarto-figure-center r-stretch" width="346"><div class="quarto-auto-generated-content">
 <div class="footer footer-default">
 <p>AgEc 211: Statistical Methods</p>
 </div>
 </div>
-</section></section>
+</section>
     </div>
   </div>
 
