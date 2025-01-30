@@ -1,7 +1,7 @@
 ---
 title: ". "
 title-slide-attributes:
-  data-background-image: "plot/module-1-title-page.png"
+  data-background-image: "plot/module-5-title-page.png"
   data-background-size: "cover"
 format: 
   revealjs:
@@ -11,7 +11,7 @@ format:
     code-summary: "code"
     chalkboard: true
     slide-number: true
-    footer: "Econ 149: Analytical and statistical packages for economoics II"
+    footer: "AgEc 211: statistical methods"
     quiz:
       defaultCorrect: "Correct!"
       defaultIncorrect: "Incorrect!"
@@ -33,7 +33,7 @@ knitr::opts_chunk$set(comment = "",
                       )
 
 ## working directory
-setwd("C:/Users/chris/Documents/Github-repository/econ149-lecture/module-1-tests-on-means")
+setwd("D:/Githu-repository/agec211-statistical-methods/agec211-lecture/module5-tests-on-means")
 
 ## Libraries
 library(tidyverse)
@@ -963,9 +963,8 @@ pairwise.wilcox.test(exam_data$exam, exam_data$group, p.adjust.method = "BH")
 |                                                                                                                 |                                                                                  | -   Testing how well an observed distribution fits an expected distribution.                                   |
 +-----------------------------------------------------------------------------------------------------------------+----------------------------------------------------------------------------------+----------------------------------------------------------------------------------------------------------------+
 
-
 # 
 
 ```{r}
-knitr::include_graphics("plot/econ149-hex-logo.png")
+knitr::include_graphics("plot/agec211-hex-logo.png")
 ```
