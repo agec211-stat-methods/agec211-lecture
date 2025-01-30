@@ -1,7 +1,7 @@
 ---
 title: ". "
 title-slide-attributes:
-  data-background-image: "plot/module-3-title-page.png"
+  data-background-image: "plot/module-7-title-page.png"
   data-background-size: "cover"
 format: 
   revealjs:
@@ -33,7 +33,7 @@ knitr::opts_chunk$set(comment = "",
                       )
 
 ## working directory
-setwd("C:/Users/chris/Documents/Github-repository/econ149-lecture/module-3-regression")
+setwd("D:/Githu-repository/agec211-statistical-methods/agec211-lecture/module7-regression")
 
 ## Libraries
 library(tidyverse)
@@ -53,16 +53,15 @@ theme_set(theme_bw(base_size = 18)) # Set theme for all ggplots
 
 # Introduction to simple linear regression
 
-
 ## What is regression?
 
 A way of predicting the value of one variable from another.
 
-- 
-  - it is a hypothetical model of the relationship between two variables.
-  - the model used is linear.
-  - we describe the relationship using the equation of a straight line.
+-   
 
+    -   it is a hypothetical model of the relationship between two variables.
+    -   the model used is linear.
+    -   we describe the relationship using the equation of a straight line.
 
 ## Simple linear regression
 
@@ -105,29 +104,27 @@ ggplot() +
   theme(plot.caption = element_text(hjust = 0.5, margin = margin(t=15), size = 14))
 ```
 
-
 ## Simple linear regression (a quick review)
 
 <br>
 
-:::: {.callout-note icon=false}
+::: {.callout-note icon="false"}
 ## Regression equation
 
 $$
 Y_i = \beta_0 + \beta_iX_i + \epsilon_i
 $$
 
--
-  - $\beta_i$
-      - regression coefficient for the predictor
-      - gradient or slope of the regression line
-      - direction/strength of the relationship
-  - $\beta_0$
-      - intercept
-      - point at which the regression line crosses the Y-axis
-::::
+-   
 
-
+    -   $\beta_i$
+        -   regression coefficient for the predictor
+        -   gradient or slope of the regression line
+        -   direction/strength of the relationship
+    -   $\beta_0$
+        -   intercept
+        -   point at which the regression line crosses the Y-axis
+:::
 
 ## Simple linear regression (a quick review)
 
@@ -142,7 +139,6 @@ knitr::include_graphics("plot/simle-linear-reg.png")
 
 A distributor of frozen desert pies wants to evaluate the effect of price to the demand of pie. Data are collected for 15 weeks.
 :::
-
 
 ```{r}
 ## import synthetic data
@@ -159,8 +155,6 @@ df <- tibble(
 
 head(df)
 ```
-
-
 
 ## Simple linear regression
 
@@ -183,7 +177,6 @@ df |> ggplot(aes(Price, Pie_Sales)) +
 :::
 
 ::: {.column width="60%"}
-
 ```{r}
 #| fig-align: center
 #| fig-height: 6
@@ -234,10 +227,11 @@ Step 3: Interpret results
 
 ## Multiple linear regression
 
-- 
-    - a linear regression with one or more independent variable (explanatory variable), and one dependent variable (response variable).
+-   
 
-    - multiple regression model
+    -   a linear regression with one or more independent variable (explanatory variable), and one dependent variable (response variable).
+
+    -   multiple regression model
 
 $$
 y = \beta_0 + \beta_1 x_1 + \beta_2 x_2 + ... + b_k x_k
@@ -344,9 +338,7 @@ Step 4: Interpret results
 
 <br>
 
-
-:::: {.columns}
-
+::::: columns
 ::: {.column width="30%"}
 ```{r}
 #| echo: true
@@ -365,16 +357,13 @@ library(jtools)
 summ(model)
 ```
 :::
-
-::::
-
+:::::
 
 ## Multiple linear regression
 
 <br>
 
-:::: {.columns}
-
+::::: columns
 ::: {.column width="40%"}
 ```{r}
 #| echo: true
@@ -399,17 +388,13 @@ library(jtools)
 effect_plot(model, pred = Price, plot.points = TRUE, jitter = 0.5, interval = TRUE)
 ```
 :::
-
-::::
-
+:::::
 
 ## Multiple linear regression
 
 <br>
 
-
-:::: {.columns}
-
+::::: columns
 ::: {.column width="40%"}
 ```{r}
 #| echo: true
@@ -434,9 +419,7 @@ library(jtools)
 effect_plot(model, pred = Advertising, plot.points = TRUE, jitter = 0.5, interval = TRUE)
 ```
 :::
-
-::::
-
+:::::
 
 # Check-up quiz
 
@@ -480,142 +463,123 @@ effect_plot(model, pred = Advertising, plot.points = TRUE, jitter = 0.5, interva
 
 -   he slope of the regression line.
 
-
 ## How good is the model?
 
 <br>
 
-:::: {.callout-warning}
+::: callout-warning
 ## Take note!
 
--
-  - The regression line is only a model based on a data.
-  - This model might not reflect the reality.
-    - We need some way of testing how well the model fits the observed data.
-    - how?
+-   
 
-::::
-
+    -   The regression line is only a model based on a data.
+    -   This model might not reflect the reality.
+        -   We need some way of testing how well the model fits the observed data.
+        -   how?
+:::
 
 ## Sum of Squares
 
 **Total sum of squares**
 
-:::: {.columns}
-
+::::: columns
 ::: {.column width="40%"}
-- 
-  - $SS_T = \Sigma(y_i - \bar{y})^2$
-    - uses the differences between the observed data and the mean value of Y
+-   
+
+    -   $SS_T = \Sigma(y_i - \bar{y})^2$
+        -   uses the differences between the observed data and the mean value of Y
 :::
 
 ::: {.column width="60%"}
-
 ```{r}
 p_sst
 ```
-
 :::
-
-::::
-
+:::::
 
 ## Sum of Squares
 
 **Residuals sum of squares**
 
-:::: {.columns}
-
+::::: columns
 ::: {.column width="40%"}
-- 
-  - $SS_R = \Sigma(y_i - \hat{y_i})^2$
-    - uses the differences between the observed data and regression line
+-   
+
+    -   $SS_R = \Sigma(y_i - \hat{y_i})^2$
+        -   uses the differences between the observed data and regression line
 :::
 
 ::: {.column width="60%"}
-
 ```{r}
 p_ssr
 ```
-
 :::
-
-::::
-
-
-
+:::::
 
 ## Multiple coefficient of determination (R-squared)
 
-:::: {.callout-note}
+::: callout-note
 ## R-squared ($R^2$)
 
--
-  - reports the proportion of total variation of in $y$ explained by all $x$ variables taken together
+-   
+
+    -   reports the proportion of total variation of in $y$ explained by all $x$ variables taken together
 
 $$
 R^2 = \frac{\text{SSR}}{SST} = \frac{\text{Sum of squares regression}}{\text{Total sum of squares}}
 $$
-
-::::
-
-
-## Multiple coefficient of determination (R-squared)
-
-- **Adjusted R-squared ($R^2$)**
-
-  - $R^2$ never decreases when new $x$ variable is added to the model.
-  - This can be disadvantage when comparing models
-  
-
-<br>
-
-
-::: {.fragment}
-:::: {.callout-warning}
-## What is the effect of adding a new variable?
-
--
-  - We lose a degree of freedom when a new $x$ variable is added.
-  - Did the new $x$ variable add enough explanatory power to offset the loss of one degree of freedom?
-
-::::
 :::
 
 ## Multiple coefficient of determination (R-squared)
 
-:::: {.callout-note}
+-   **Adjusted R-squared (**$R^2$)
 
-## **Adjusted R-squared ($R^2$)**
+    -   $R^2$ never decreases when new $x$ variable is added to the model.
+    -   This can be disadvantage when comparing models
+
+<br>
+
+:::: fragment
+::: callout-warning
+## What is the effect of adding a new variable?
+
+-   
+
+    -   We lose a degree of freedom when a new $x$ variable is added.
+    -   Did the new $x$ variable add enough explanatory power to offset the loss of one degree of freedom?
+:::
+::::
+
+## Multiple coefficient of determination (R-squared)
+
+::: callout-note
+## **Adjusted R-squared (**$R^2$)
 
 $$
 R^2_{adj} = 1 - (1 - R^2)(\frac{n-1}{n-k-1})
 $$
 
-- where
-  - $n$ = sample size
-  - $k$ = number of independent variables
+-   where
+    -   $n$ = sample size
+    -   $k$ = number of independent variables
+:::
 
-::::
+-   
 
-- 
-  - shows the proportion of variation in $y$ explained by all $x$ variables adjusted for the number of $x$ variables used.
-  
-  - where excessive use of unimportant independent variables
-  
-  - smaller then $R^2$
-  
-  - useful in comparing among models
-  
+    -   shows the proportion of variation in $y$ explained by all $x$ variables adjusted for the number of $x$ variables used.
+
+    -   where excessive use of unimportant independent variables
+
+    -   smaller then $R^2$
+
+    -   useful in comparing among models
 
 ## Example in R
 
 Calculate the $R^2$ and adjusted $R^2$
 
-:::: {.columns}
-
-::: {.column width="50%"}
-
+::::::: columns
+:::: {.column width="50%"}
 $$
 R^2 = \frac{\text{SSR}}{SST} = \frac{\Sigma(y_i - \hat{y_i})^2}{\Sigma(y_i - \bar{y})^2}
 $$
@@ -642,18 +606,15 @@ r_squared_manual <- 1 - (SS_res / SS_tot)
 
 ```
 
-:::: {.callout-tip appearance="simple" icon=false .mycallout}
-
+::: {.callout-tip .mycallout appearance="simple" icon="false"}
 ```{r}
 ## Print the manually calculated values
 cat("Manual R-squared:", r_squared_manual, "\n")
 ```
+:::
 ::::
 
-:::
-
-::: {.column width="50%"}
-
+:::: {.column width="50%"}
 $$
 R^2_{adj} = 1 - (1 - R^2)(\frac{n-1}{n-k-1})
 $$
@@ -668,73 +629,47 @@ adj_r_squared_manual <- 1 - ((1 - r_squared_manual) * (n - 1) / (n - k - 1))
 
 ```
 
-:::: {.callout-tip appearance="simple" icon=false .mycallout}
+::: {.callout-tip .mycallout appearance="simple" icon="false"}
 ```{r}
 ## Print the manually calculated values
 cat("Manual Adjusted R-squared:", adj_r_squared_manual, "\n")
 ```
-::::
-
 :::
-
 ::::
-
-
-
-
+:::::::
 
 # Diagnostic tests
 
-
 ## Linearity assumption
 
-- 
+-   
 
-  - linear regression model relates the outcome to the predictors via a linear fashion.
-  
-  - departure from linearity can be checked by using a scatter plot and a line overlaid to the plots
-  
-  - if linearity is not satisfied, transformation may be needed
-  
-  
+    -   linear regression model relates the outcome to the predictors via a linear fashion.
+
+    -   departure from linearity can be checked by using a scatter plot and a line overlaid to the plots
+
+    -   if linearity is not satisfied, transformation may be needed
+
 ## Linearity assumption
-
 
 **insert plot**
 
-
 ## Normality of errors
 
--
+-   
 
-  - confidence intervals for regression and related hypothesis tests are based on the assumption that the coeffcient estimates have normal distribution.
-  
-
+    -   confidence intervals for regression and related hypothesis tests are based on the assumption that the coeffcient estimates have normal distribution.
 
 ## Homoscedasticity of error variance
 
-
 ## Independence of errors
-
 
 ## Non-multicollinearity
 
-
 ## 
-
-
-
-
-
-
-
-
-
-
-
 
 # 
 
 ```{r}
-knitr::include_graphics("plot/econ149-hex-logo.png")
+knitr::include_graphics("plot/agec211-hex-logo.png")
 ```
