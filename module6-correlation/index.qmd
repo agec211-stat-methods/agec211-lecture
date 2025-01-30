@@ -1,7 +1,7 @@
 ---
 title: ". "
 title-slide-attributes:
-  data-background-image: "plot/module-2-title-page.png"
+  data-background-image: "plot/module-6-title-page.png"
   data-background-size: "cover"
 format: 
   revealjs:
@@ -11,7 +11,7 @@ format:
     code-summary: "code"
     chalkboard: true
     slide-number: true
-    footer: "Econ 149: Analytical and statistical packages 2"
+    footer: "AgEc 211: statistical methods"
     quiz:
       defaultCorrect: "Correct!"
       defaultIncorrect: "Incorrect!"
@@ -33,7 +33,7 @@ knitr::opts_chunk$set(comment = "",
                       )
 
 ## working directory
-setwd("C:/Users/chris/Documents/Github-repository/econ149-lecture/module-2-correlation")
+setwd("D:/Githu-repository/agec211-statistical-methods/agec211-lecture/module6-correlation")
 
 ## Libraries
 library(tidyverse)
@@ -48,7 +48,6 @@ library(kableExtra)
 theme_set(theme_bw(base_size = 18)) # Set theme for all ggplots
 
 ```
-
 
 # Correlation Analysis
 
@@ -353,9 +352,8 @@ cor.test(mtcars$mpg, mtcars$wt, method = "spearman")
 
 -   [All of the above]{.correct}
 
-
 # 
 
 ```{r}
-knitr::include_graphics("plot/econ149-hex-logo.png")
+knitr::include_graphics("plot/agec211-hex-logo.png")
 ```
